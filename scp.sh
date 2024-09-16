@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #====================================================================
-# A help script for myself to copy files to other hosts in my 
+# A helper script for myself to copy files to other hosts in my 
 # network excluding certian directories
 # muquit@muquit.com Sep-15-2024 
 #====================================================================
