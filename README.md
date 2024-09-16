@@ -35,7 +35,7 @@ python3 -m venv pvenv
 source pvenv/bin/activate
 ```
 
-- Install mython modules
+- Install python modules
 
 ```
 pip3 install -r ./ingest/requirement.txt
