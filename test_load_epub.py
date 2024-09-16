@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 #==================================================================== 
 # Test loading an epub file. 
+# created by Claude AI
 # muquit@muquit.com Sep-15-2024 
 #==================================================================== 
 from langchain_community.document_loaders import UnstructuredEPubLoader
