@@ -107,7 +107,8 @@ It will start a browser in your local machine. `./run_assistant_ui.sh -h` for mo
 
 ## EPUB document
 
-I played with some epub documents from https://www.gutenberg.org/ and the results seems to vary of the document. This is a work in progress ...
+I played with some epub documents from https://www.gutenberg.org/ and the results seems to vary based 
+on the type of documents. This is a work in progress ...
 
 The following are needed to create EMBEDDINGS for EPUB files:
 
