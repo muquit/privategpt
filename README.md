@@ -11,7 +11,7 @@ Please look at ChangeLog for details for what is changed.
 
 ## Install ollama
 
-- First of all you have to install [ollama](https://ollama.com) on system.
+- First of all you have to install [ollama](https://ollama.com) on your system.
 - Then install a LLM, I use mistral and llama3. Here is how to install and query a model
 
 ```
@@ -21,7 +21,7 @@ ollama run mistral
 /bye to exit
 ```
 
-## Install python modules for Ingesting documents
+## Install python modules 
 
 - Create python virtual environment first
 
@@ -79,11 +79,11 @@ CHROMA_SETTINGS = Settings(
 )
 ```
 
-# Vectorize your ducments
+# Vectorize your documents
 
 At this time I've noticed good result with PDF _text_ documents. The instructions will be updated when I play with other document types.
 
-- Copy your PDF or text fiels to ./ingest/documents directory
+- Copy your PDF or text files to ./ingest/documents directory
 
 ```
 copy file.pdf ./ingest/documents
@@ -109,7 +109,7 @@ It will start a browser in your local machine. `./run_assistant_ui.sh -h` for mo
 
 I played with some epub documents from https://www.gutenberg.org/ and the results seems to vary of the document. This is a work in progress ...
 
-The folloiwng are needed to create embeddings for EPUB files:
+The following are needed to create EMBEDDINGS for EPUB files:
 
 - pandoc binary
 - langchain_community unstructured, "unstructured[epub]" and pacdoc python
