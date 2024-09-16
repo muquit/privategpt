@@ -200,9 +200,12 @@ def main():
     if does_vectorstore_exist(conf.PERSIST_DIRECTORY):
         # Update and store locally vectorstore
         logger.info(f"Appending to existing vectorstore at {persist_directory}")
+
+        # remove client_setting, otherwise new document appending 
+        # fails
         db = Chroma(persist_directory=conf.PERSIST_DIRECTORY,
-                    embedding_function=embeddings,
-                    client_settings=conf.CHROMA_SETTINGS)
+                    embedding_function=embeddings)
+                    
         collection = db.get()
         texts = process_documents(conf, logger, [metadata['source'] for metadata in collection['metadatas']])
         logger.info("Creating embeddings. It May take few minutes...")

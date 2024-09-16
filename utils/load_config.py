@@ -25,14 +25,15 @@ def load_config():
         DOCUMENT_DIR, 
         PERSIST_DIRECTORY, 
         PROJECT_ROOT, 
-        CHROMA_SETTINGS,
         CHUNK_SIZE, 
         OVERLAP,
         LOG_FILE_INGEST,
         LOG_FILE_CHAT,
         EMBEDDINGS_MODEL_NAME,
         TARGET_SOURCE_CHUNKS,
-        OLLAMA_URL
+        OLLAMA_URL,
+        PROJECT_URL,
+        SHOW_PROJECT_URL
     )
 
     # return configuration as a SimpleNamespace object
@@ -41,14 +42,15 @@ def load_config():
         DOCUMENT_DIR=DOCUMENT_DIR,
         PERSIST_DIRECTORY=PERSIST_DIRECTORY,
         PROJECT_ROOT=PROJECT_ROOT,
-        CHROMA_SETTINGS=CHROMA_SETTINGS,
         CHUNK_SIZE=CHUNK_SIZE,
         OVERLAP=OVERLAP,
         LOG_FILE_INGEST=LOG_FILE_INGEST,
         LOG_FILE_CHAT=LOG_FILE_CHAT,
         EMBEDDINGS_MODEL_NAME=EMBEDDINGS_MODEL_NAME,
         TARGET_SOURCE_CHUNKS=TARGET_SOURCE_CHUNKS,
-        OLLAMA_URL=OLLAMA_URL
+        OLLAMA_URL=OLLAMA_URL,
+        PROJECT_URL=PROJECT_URL,
+        SHOW_PROJECT_URL=SHOW_PROJECT_URL
     )
 
 #====================================================================
