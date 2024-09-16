@@ -8,7 +8,7 @@
 """
 The document retrieval code is based on:
 https://github.com/ollama/ollama/tree/main/examples/langchain-python-rag-privategpt
-I wrote the web ui using streamlist
+I wrote the web ui using streamlit
 """
 
 
