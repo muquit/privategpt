@@ -1,0 +1,8 @@
+tqdm
+langchain_community
+langchain_huggingface
+langchain-chroma
+chromadb
+sentence_transformers
+pymupdf
+streamlit
