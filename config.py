@@ -7,9 +7,9 @@ from chromadb.config import Settings
 
 current_file_path = os.path.abspath(__file__)
 
-# Change if ollama is running on different system on 
+# Change if ollama is running on a different system on 
 # your network or somewhere in the cloud. Please look
-# at ollama document and FAQ on how ollama can listen
+# at ollama document and FAQ on how ollama can bind
 # to all network interfaces.
 # By default use localhost
 OLLAMA_URL = "http://127.0.0.1:11434"
