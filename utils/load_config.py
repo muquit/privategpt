@@ -33,7 +33,8 @@ def load_config():
         TARGET_SOURCE_CHUNKS,
         OLLAMA_URL,
         PROJECT_URL,
-        SHOW_PROJECT_URL
+        SHOW_PROJECT_URL,
+        SHOW_SIDEBAR
     )
 
     # return configuration as a SimpleNamespace object
@@ -50,7 +51,8 @@ def load_config():
         TARGET_SOURCE_CHUNKS=TARGET_SOURCE_CHUNKS,
         OLLAMA_URL=OLLAMA_URL,
         PROJECT_URL=PROJECT_URL,
-        SHOW_PROJECT_URL=SHOW_PROJECT_URL
+        SHOW_PROJECT_URL=SHOW_PROJECT_URL,
+        SHOW_SIDEBAR=SHOW_SIDEBAR
     )
 
 #====================================================================

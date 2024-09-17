@@ -65,8 +65,10 @@ def doit():
         </style>
         """, unsafe_allow_html=True)
 
-        APP_TITLE = "Documents Assistant"
-        url_line = '</br><span style="font-style: italic; font-weight: normal;"><a href="https://muquit.com/" target="_blank">https://muquit.com/</a></span>' if conf.SHOW_PROJECT_URL else ''
+        APP_TITLE = "Private Documents Assistant"
+        url_line = f'<br><a href="{conf.PROJECT_URL}" target="_blank" style="font-style: italic; font-weight: normal;">{conf.PROJECT_URL}</a>' if conf.SHOW_PROJECT_URL else ''
+
+        logger.info(f"URL line: {url_line}")
 
         st.markdown(f"""
         <div class="centered">
@@ -99,7 +101,8 @@ def doit():
         st.session_state.qa = None
 
     # sidebar for configuration
-    st.set_page_config(initial_sidebar_state="collapsed")
+    if conf.SHOW_SIDEBAR == False:
+        st.set_page_config(initial_sidebar_state="collapsed")
     st.sidebar.title("Configuration")
     model = st.sidebar.selectbox("Select Model", ["mistral", "llama3"], index=0)
     embeddings_model_name = conf.EMBEDDINGS_MODEL_NAME

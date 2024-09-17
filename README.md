@@ -7,23 +7,31 @@ https://github.com/ollama/ollama/tree/main/examples/langchain-python-rag-private
 
 Please look at ChangeLog for details for what is changed.
 
+# Requirements
+
+- [ollama](https://ollama.com)
+- python3
+
 # How to use
 
 ## Install ollama
 
 - First of all you have to install [ollama](https://ollama.com) on your system.
-- Then install a LLM, I use mistral and llama3. Here is how to install and query a model
+- Then install 2 Large Language Models (LLMS), I use mistral and llama3. Here is how to install and query a model
 
 ```
 ollama pull mistral
+ollama pull llama3
 ollama list
 ollama run mistral
 /bye to exit
 ```
 
-## Install python modules 
+This list will be dynamic in future
 
-- Create python virtual environment first
+## Install python modules
+
+- Create python virtual environment first. Do not install the modules globally in your system, it can break things.
 
 ```
 python3 -m venv pvenv
@@ -35,10 +43,28 @@ python3 -m venv pvenv
 source pvenv/bin/activate
 ```
 
-- Install python modules
+- If you need to deactive virtual env
 
 ```
-pip3 install -r ./ingest/requirement.txt
+deactivate
+```
+
+- Install python modules. The following modulles and their dependencies will be installed in the virtual environment.
+
+```
+$ cat requirements.txt
+tqdm
+langchain_community
+langchain_huggingface
+langchain-chroma
+chromadb
+sentence_transformers
+pymupdf
+streamlit
+```
+
+```
+pip3 install -r ./requirement.txt
 ```
 
 # Configuration file
@@ -48,14 +74,14 @@ Update `config.py` if needed:
 ```
 import os
 import sys
-from chromadb.config import Settings
 
 # If new variables are added, do not forget to
 # add it to utils/load_config.py
 
 current_file_path = os.path.abspath(__file__)
+VERSION="1.0.2"
 
-# Change if ollama is running on a different system on 
+# Change if ollama is running on a different system on
 # your network or somewhere in the cloud. Please look
 # at ollama document and FAQ on how ollama can bind
 # to all network interfaces.
@@ -63,7 +89,13 @@ current_file_path = os.path.abspath(__file__)
 OLLAMA_URL = "http://127.0.0.1:11434"
 
 PROJECT_ROOT = os.path.dirname(current_file_path)
-VERSION="1.0.2"
+PROJECT_URL = "https://muquit.com/"
+# Set it to false if you want to display project
+# URL in web app
+SHOW_PROJECT_URL = True
+# If you installed various LLMs, a specific model can be picked from
+# sidebar
+SHOW_SIDEBAR = True
 DOCUMENT_DIR = os.path.join(PROJECT_ROOT, 'ingest/documents')
 PERSIST_DIRECTORY = os.path.join(PROJECT_ROOT, 'assistant/db')
 CHUNK_SIZE = 500
@@ -72,11 +104,6 @@ TARGET_SOURCE_CHUNKS = 4
 EMBEDDINGS_MODEL_NAME = "all-MiniLM-L6-v2"
 LOG_FILE_INGEST = "/tmp/docs_ingest.log"
 LOG_FILE_CHAT = "/tmp/private_gpt.log"
-
-CHROMA_SETTINGS = Settings(
-    persist_directory=PERSIST_DIRECTORY,
-    anonymized_telemetry=False
-)
 ```
 
 # Vectorize your documents
@@ -107,7 +134,7 @@ It will start a browser in your local machine. `./run_assistant_ui.sh -h` for mo
 
 ## EPUB document
 
-I played with some epub documents from https://www.gutenberg.org/ and the results seems to vary based 
+I played with some epub documents from https://www.gutenberg.org/ and the results seems to vary based
 on the type of documents. This is a work in progress ...
 
 The following are needed to create EMBEDDINGS for EPUB files:

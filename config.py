@@ -5,6 +5,7 @@ import sys
 # add it to utils/load_config.py
 
 current_file_path = os.path.abspath(__file__)
+VERSION="1.0.2"
 
 # Change if ollama is running on a different system on 
 # your network or somewhere in the cloud. Please look
@@ -14,11 +15,13 @@ current_file_path = os.path.abspath(__file__)
 OLLAMA_URL = "http://127.0.0.1:11434"
 
 PROJECT_ROOT = os.path.dirname(current_file_path)
-PROJECT_URL = "https://muquit.com/"
+PROJECT_URL = "https://muquit.com/muquit/software/software.html"
 # Set it to false if you want to display project
 # URL in web app
 SHOW_PROJECT_URL = True
-VERSION="1.0.2"
+# If you installed various LLMs, a specific model can be picked from 
+# sidebar
+SHOW_SIDEBAR = True
 DOCUMENT_DIR = os.path.join(PROJECT_ROOT, 'ingest/documents')
 PERSIST_DIRECTORY = os.path.join(PROJECT_ROOT, 'assistant/db')
 CHUNK_SIZE = 500
