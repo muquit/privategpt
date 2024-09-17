@@ -87,12 +87,12 @@ VERSION="1.0.2"
 # your network or somewhere in the cloud. Please look
 # at ollama document and FAQ on how ollama can bind
 # to all network interfaces.
-# By default use localhost
+# By default use localhost (127.0.0.1)
 OLLAMA_URL = "http://127.0.0.1:11434"
 
 PROJECT_ROOT = os.path.dirname(current_file_path)
 PROJECT_URL = "https://muquit.com/muquit/software/software.html"
-# Set it to false if you want to display project
+# Set it to False if you do not want to display the project
 # URL in web app
 SHOW_PROJECT_URL = True
 # If you installed various LLMs, a specific model can be picked from
