@@ -110,7 +110,7 @@ LOG_FILE_CHAT = "/tmp/private_gpt.log"
 
 At this time I've noticed good result with PDF _text_ documents. The instructions will be updated when I play with other document types.
 
-- Copy your PDF or text files to ./ingest/documents directory
+- The project comes with 2 free books in text dracula.txt and time_machine.txt from [Project Guenberg](https://www.gutenberg.org/). If you want, copy some PDF or text files to ./ingest/documents directory
 
 ```
 copy file.pdf ./ingest/documents
@@ -131,6 +131,12 @@ Start the web ui
 ```
 
 It will start a browser in your local machine. `./run_assistant_ui.sh -h` for more info
+
+# Screenshot of the web ui
+
+A response for a question about one of the documents. Sources shows the chunks found in the similarity search. The chunks are tthen sent to LLM and the model summerized the chunks as reponse at the top.
+
+![dracula](./screenshots/dracula.png)
 
 ## EPUB document
 
