@@ -63,6 +63,8 @@ pymupdf
 streamlit
 ```
 
+To install the modules:
+
 ```
 pip3 install -r ./requirement.txt
 ```
@@ -89,7 +91,7 @@ VERSION="1.0.2"
 OLLAMA_URL = "http://127.0.0.1:11434"
 
 PROJECT_ROOT = os.path.dirname(current_file_path)
-PROJECT_URL = "https://muquit.com/"
+PROJECT_URL = "https://muquit.com/muquit/software/software.html"
 # Set it to false if you want to display project
 # URL in web app
 SHOW_PROJECT_URL = True
