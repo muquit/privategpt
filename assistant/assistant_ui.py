@@ -74,8 +74,7 @@ def doit():
         <div class="centered">
             <h2>{APP_TITLE}</h2>
             <p style='font-size: 0.9em; font-weight: bold;'>
-            An OpenSource on-premises ML-powered
-            Retrieval-Augmented Generation (RAG) application with ollama{url_line}
+            An on-premises private documents assistant with ollama{url_line}
             </p>
         </div>
         """, unsafe_allow_html=True)
