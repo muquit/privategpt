@@ -136,7 +136,7 @@ It will start a browser in your local machine. `./run_assistant_ui.sh -h` for mo
 
 # Screenshot of the web ui
 
-A response for a question about one of the documents. Sources shows the chunks found in the similarity search. The chunks are tthen sent to LLM and the model summerized the chunks as reponse at the top.
+A response for a question about one of the documents. Sources show the chunks found in the similarity search in the database. The chunks are then sent to the locall LLM and the model summerized the chunks as reponse at the top.
 
 ![dracula](./screenshots/dracula.png)
 
