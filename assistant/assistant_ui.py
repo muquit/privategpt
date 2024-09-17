@@ -171,8 +171,8 @@ def doit():
             stream_handler = StreamHandler(response_container)
             # __call__ method is deprecated, use invoke instead.
             with st.spinner('Processing...'):
-                response = st.session_state.qa.invoke(
-                    input={"query": prompt},
+                response = st.session_state.qa(
+                    {"query": prompt},
                     callbacks=[stream_handler]
                 )
             
