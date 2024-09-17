@@ -110,7 +110,7 @@ LOG_FILE_CHAT = "/tmp/private_gpt.log"
 
 # Vectorize your documents
 
-At this time I've noticed good result with PDF _text_ and reqular text documents. The instructions will be updated when I play with other document types.
+At this time I've noticed good results with PDF _text_ and reqular text documents. The instructions will be updated when I play with other document types.
 
 - The project comes with 2 free books in text dracula.txt and time_machine.txt from [Project Guenberg](https://www.gutenberg.org/). If you want, copy some PDF or text files to ./ingest/documents directory
 
