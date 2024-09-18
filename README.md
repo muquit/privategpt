@@ -27,7 +27,7 @@ ollama run mistral
 /bye to exit
 ```
 
-This list will be dynamic in future
+This list will be dynamic in future in the web ui
 
 ## Install python modules
 
@@ -136,6 +136,10 @@ Start the web ui
 
 It will start a browser in your local machine. `./run_assistant_ui.sh -h` for more info
 
+# To start over
+
+Remove the content of db folder and ingest documents again. Remove/Add documents in ingest/documetnts/directory. If new documents are found, they will be appended to the vector database automatically. The database folder is `asssistant/db/`
+
 # Screenshot of the web ui
 
 A response for a question about one of the documents. Sources show the chunks found in the similarity search in the database. The chunks are then sent to the locall LLM and the model summerized the chunks as reponse at the top.
@@ -148,7 +152,7 @@ from [llama3 8b](https://ollama.com/library/llama3) model without GPU:
 
 ![dracula_llama3](./screenshots/dracula_llama3.png)
 
-## EPUB document
+# EPUB documents
 
 I played with some epub documents from https://www.gutenberg.org/ and the results seems to vary based
 on the type of documents. This is a work in progress ...
