@@ -37,7 +37,9 @@ This list will be dynamic in future
 python3 -m venv pvenv
 ```
 
-- Activate modules. In Linux, Mac
+If virtual environemnt module is not installed, follow the help message to install it and then create the envionment.
+
+- Activate virtual environment. In Linux, Mac
 
 ```
 source pvenv/bin/activate
