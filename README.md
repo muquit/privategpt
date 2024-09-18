@@ -112,7 +112,7 @@ LOG_FILE_CHAT = "/tmp/private_gpt.log"
 
 At this time I've noticed good results with PDF _text_ and reqular text documents. The instructions will be updated when I play with other document types.
 
-- The project comes with 2 free books in text dracula.txt and time_machine.txt from [Project Guenberg](https://www.gutenberg.org/). If you want, copy some PDF or text files to ./ingest/documents directory
+- The project comes with a free PDF book [dracula.pdf](https://www.planetebook.com/free-ebooks/dracula.pdf) in `ingest/documents` directory. I noticed that the extracted texts from the PDF version of dracula gives much better results than the free dracula.txt and time [Project Guenberg](https://www.gutenberg.org/). If you want, copy some PDF files to `./ingest/documents` directory and vectorize them. If new documents are found, they will be appended to the vector database. 
 
 ```
 copy file.pdf ./ingest/documents

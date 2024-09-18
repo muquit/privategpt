@@ -133,7 +133,7 @@ def doit():
             chain_type="stuff", 
             retriever=retriever, 
             return_source_documents=True,
-            verbose=True
+            verbose=False
         )
         logger.debug(f"QA chain return_source_documents: {qa.return_source_documents}")
         return qa
