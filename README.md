@@ -112,7 +112,7 @@ LOG_FILE_CHAT = "/tmp/private_gpt.log"
 
 At this time I've noticed good results with PDF _text_ and reqular text documents. The instructions will be updated when I play with other document types.
 
-- The project comes with a free PDF book [dracula.pdf](https://www.planetebook.com/free-ebooks/dracula.pdf) in `ingest/documents` directory. I noticed that the extracted texts from the PDF version of dracula gives much better results than the free dracula.txt and time [Project Guenberg](https://www.gutenberg.org/). If you want, copy some PDF files to `./ingest/documents` directory and vectorize them. If new documents are found, they will be appended to the vector database. 
+- The project comes with a free PDF book [dracula.pdf](https://www.planetebook.com/free-ebooks/dracula.pdf) in `ingest/documents` directory. I noticed that the extracted texts from the PDF version of dracula gives much better results than the free dracula.txt and time [Project Guenberg](https://www.gutenberg.org/). If you want, copy some PDF files to `./ingest/documents` directory and vectorize them. If new documents are found, they will be appended to the vector database.
 
 ```
 copy file.pdf ./ingest/documents
@@ -138,7 +138,13 @@ It will start a browser in your local machine. `./run_assistant_ui.sh -h` for mo
 
 A response for a question about one of the documents. Sources show the chunks found in the similarity search in the database. The chunks are then sent to the locall LLM and the model summerized the chunks as reponse at the top.
 
-![dracula](./screenshots/dracula.png)
+from [mistral 7.2B](https://ollama.com/library/mistral) model without GPU:
+
+![dracula_mistral](./screenshots/dracula_mistral.png)
+
+from [llama3 8b](https://ollama.com/library/llama3) model without GPU:
+
+![dracula_llama3](./screenshots/dracula_llama3.png)
 
 ## EPUB document
 
