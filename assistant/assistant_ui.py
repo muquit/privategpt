@@ -103,7 +103,8 @@ def doit():
     if conf.SHOW_SIDEBAR == False:
         st.set_page_config(initial_sidebar_state="collapsed")
     st.sidebar.title("Configuration")
-    model = st.sidebar.selectbox("Select Model", ["mistral", "llama3"], index=0)
+#    model = st.sidebar.selectbox("Select Model", ["mistral", "llama3"], index=0)
+    model = st.sidebar.selectbox("Select Model", conf.LLM_MODELS, index=0)
     embeddings_model_name = conf.EMBEDDINGS_MODEL_NAME
     hide_source = st.sidebar.checkbox("Hide Source", value=False)
 

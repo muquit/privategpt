@@ -30,3 +30,6 @@ TARGET_SOURCE_CHUNKS = 4
 EMBEDDINGS_MODEL_NAME = "all-MiniLM-L6-v2"
 LOG_FILE_INGEST = "/tmp/docs_ingest.log"
 LOG_FILE_CHAT = "/tmp/private_gpt.log"
+
+# LLM models
+LLM_MODELS = ["mistral", "llama3", "qwen2:7b"]
