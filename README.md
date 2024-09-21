@@ -175,6 +175,8 @@ from [llama3 8b](https://ollama.com/library/llama3) model without GPU:
 
 ![dracula_llama3](./screenshots/dracula_llama3.png)
 
+![dracula_qwen2](./screenshots/dracula_qwen2.png)
+
 # EPUB documents
 
 I played with some epub documents from https://www.gutenberg.org/ and the results seems to vary based
