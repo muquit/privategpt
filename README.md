@@ -17,7 +17,7 @@ Please look at ChangeLog for details for what is changed.
 ## Install ollama
 
 - First of all you have to install [ollama](https://ollama.com) on your system.
-- Then install 2 Large Language Models (LLMS), I use mistral and llama3. Here is how to install and query a model
+- Then install 2 Large Language Models (LLMS), I use mistral and llama3. Here is how to install and query models. You can run any model from ollama page. It is also possible to convert any GGUF models from huggingface to ollama modes and use them. I will add instructions on how to do that ...
 
 ```
 ollama pull mistral
@@ -26,8 +26,18 @@ ollama list
 ollama run mistral
 /bye to exit
 ```
+In my system:
 
-This list will be dynamic in future in the web ui
+```
+$ ollama list
+NAME                   	ID          	SIZE  	MODIFIED
+qwen2:7b               	dd314f039b9d	4.4 GB	2 days ago
+nomic-embed-text:latest	0a109f422b47	274 MB	4 weeks ago
+llama3:latest          	365c0bd3c000	4.7 GB	8 weeks ago
+mistral:latest         	f974a74358d6	4.1 GB	8 weeks ago
+```
+The models will be displayed in the select list in the sidebar. To ignore any model, add it in the list in `config.py` with `EXCLUDE_MODELS`
+
 
 ## Install python modules
 
@@ -85,7 +95,7 @@ import sys
 current_file_path = os.path.abspath(__file__)
 VERSION="1.0.2"
 
-# Change if ollama is running on a different system on
+# Change if ollama is running on a different system on 
 # your network or somewhere in the cloud. Please look
 # at ollama document and FAQ on how ollama can bind
 # to all network interfaces.
@@ -93,39 +103,52 @@ VERSION="1.0.2"
 OLLAMA_URL = "http://127.0.0.1:11434"
 
 PROJECT_ROOT = os.path.dirname(current_file_path)
-PROJECT_URL = "https://muquit.com/muquit/software/software.html"
+PROJECT_URL = "https://github.com/muquit/privategpt"
 # Set it to False if you do not want to display the project
 # URL in web app
 SHOW_PROJECT_URL = True
-# If you installed various LLMs, a specific model can be picked from
+# If you installed various LLMs, a specific model can be picked from 
 # sidebar
 SHOW_SIDEBAR = True
-DOCUMENT_DIR = os.path.join(PROJECT_ROOT, 'ingest/documents')
-PERSIST_DIRECTORY = os.path.join(PROJECT_ROOT, 'assistant/db')
+
+# put your documetns in ./documents directory
+DOCUMENT_DIR = os.path.join(PROJECT_ROOT, 'documents')
+
+# database will be created in ./db directory
+PERSIST_DIRECTORY = os.path.join(PROJECT_ROOT, 'db')
+
 CHUNK_SIZE = 500
 OVERLAP = 50
 TARGET_SOURCE_CHUNKS = 4
 EMBEDDINGS_MODEL_NAME = "all-MiniLM-L6-v2"
+
+# Log files, Change
 LOG_FILE_INGEST = "/tmp/docs_ingest.log"
 LOG_FILE_CHAT = "/tmp/private_gpt.log"
+
+# All the loaded will be displayed. To exclude
+# any model, add in the list below, for example, there is no
+# reason to display an embedding model in the list.
+#EXCLUDE_MODELS = []
+EXCLUDE_MODELS = ["nomic-embed-text:latest", "qwen2:7b"]
 ```
 
 # Vectorize your documents
 
 At this time I've noticed good results with PDF _text_ and reqular text documents. The instructions will be updated when I play with other document types.
 
-- The project comes with a free PDF book [dracula.pdf](https://www.planetebook.com/free-ebooks/dracula.pdf) in `ingest/documents` directory. I noticed that the extracted texts from the PDF version of dracula gives much better results than the free dracula.txt and time [Project Guenberg](https://www.gutenberg.org/). If you want, copy some PDF files to `./ingest/documents` directory and vectorize them. If new documents are found, they will be appended to the vector database.
+- The project comes with a free PDF book [dracula.pdf](https://www.planetebook.com/free-ebooks/dracula.pdf) in `./documents` directory. I noticed that the extracted texts from the PDF version of dracula gives much better results than the free dracula.txt and time [Project Guenberg](https://www.gutenberg.org/). If you want, copy some PDF files to `./documents` directory and vectorize them. If new documents are found, they will be appended to the vector database.
 
 ```
-copy file.pdf ./ingest/documents
+copy file.pdf ./documents
 ```
 
 - Vectorize
 
 ```
-./ingest/ingest.py
+./ingest/ingest.py or ./ingest.sh
 ```
-
+The vector database will be created in `/db` directory as configured in `config.py`.
 # Query your document
 
 Start the web ui

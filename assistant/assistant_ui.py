@@ -16,6 +16,7 @@ import os
 import sys
 
 import streamlit as st
+import ollama
 from streamlit.runtime.scriptrunner import get_script_run_ctx
 
 from langchain.chains import RetrievalQA
@@ -53,6 +54,7 @@ def doit():
 
     logger.info(f"Starting {conf.VERSION}")
 
+    @st.cache_resource
     def print_header():
         st.markdown("""
         <style>
@@ -103,19 +105,34 @@ def doit():
     if conf.SHOW_SIDEBAR == False:
         st.set_page_config(initial_sidebar_state="collapsed")
     st.sidebar.title("Configuration")
-#    model = st.sidebar.selectbox("Select Model", ["mistral", "llama3"], index=0)
-    model = st.sidebar.selectbox("Select Model", conf.LLM_MODELS, index=0)
+
+    # get the list of models
+    all_models = [model["name"] for model in ollama.list()["models"]]
+    models = [model for model in all_models if model not in conf.EXCLUDE_MODELS]
+
+    # select the first model in the list as default
+#    st.session_state["model"] = st.sidebar.selectbox("Choose your model", models, index=0)
+    model = st.sidebar.selectbox("Choose your model", models, index=0)
+    
+    # model to use for vectorizing texts
     embeddings_model_name = conf.EMBEDDINGS_MODEL_NAME
+
+    # hide source checkbox
     hide_source = st.sidebar.checkbox("Hide Source", value=False)
 
     # print the header first
     print_header()
 
+    @st.cache_resource(show_spinner=False)
+    def get_embeddings(model_name):
+        return HuggingFaceEmbeddings(model_name=model_name)
+
     # initialize embeddings and database
     @st.cache_resource(show_spinner=False)
     def initialize_qa(model, embeddings_model_name, hide_source):
         logger.info("Initializing QA ...")
-        embeddings = HuggingFaceEmbeddings(model_name=embeddings_model_name)
+        embeddings = get_embeddings(embeddings_model_name)
+#        embeddings = HuggingFaceEmbeddings(model_name=embeddings_model_name)
         db = Chroma(persist_directory=conf.PERSIST_DIRECTORY, embedding_function=embeddings)
         doc_count = db._collection.count()
         if doc_count == 0:
@@ -150,6 +167,9 @@ def doit():
             embeddings_model_name != st.session_state.get('embeddings_model') or
             hide_source != st.session_state.get('hide_source')):    
          with st.spinner("Initializing ..."):
+#            print("XXXXXXXXXXX")
+#            print(f">>>>>>>>>>>>>>>> using model {model}")
+#            print("XXXXXXXXXXX")
             st.session_state.qa = initialize_qa(model, embeddings_model_name, hide_source)
             st.session_state.model = model
             st.session_state.embeddings_model = embeddings_model_name
@@ -196,7 +216,13 @@ def doit():
                     logger.error(f"Debug - Error retrieving source documents: {str(e)}")
                     source_documents = []
 
-            logger.info(f"Answer: {answer}")
+##--            logger.info(f"Answer: {answer}")
+            # Only log the answer if it's for a new question
+#            if 'last_question' not in st.session_state or st.session_state.last_question != prompt:
+#                logger.info(f"Question: {prompt}")
+#                logger.info(f"Answer: {answer}")
+#                st.session_state.last_question = prompt
+
 
             # __call__ method is deprecated, use invoke instead. But 
             # we must update the response container with the final 
@@ -219,9 +245,11 @@ def doit():
             else:
                 logger.info("Debug - Source display is hidden")            
 
-    logger.debug(f"hide_source value: {hide_source}")
-    logger.debug(f"qa chain type: {type(st.session_state.qa)}")
-    #logger.debug(f"qa chain attributes: {dir(st.session_state.qa)}")
+    if model != st.session_state.get('model'):
+        logger.debug(f"hide_source value: {hide_source}")
+        logger.debug(f"qa chain type: {type(st.session_state.qa)}")
+        logger.debug(f">>>>>>>>>>>>>>>> using model {model}")
+        #logger.debug(f"qa chain attributes: {dir(st.session_state.qa)}")
 
     # button to clear conversation history (only shown if there's a 
     # conversation)

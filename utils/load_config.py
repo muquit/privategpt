@@ -35,7 +35,7 @@ def load_config():
         PROJECT_URL,
         SHOW_PROJECT_URL,
         SHOW_SIDEBAR,
-        LLM_MODELS,
+        EXCLUDE_MODELS
     )
 
     # return configuration as a SimpleNamespace object
@@ -54,7 +54,7 @@ def load_config():
         PROJECT_URL=PROJECT_URL,
         SHOW_PROJECT_URL=SHOW_PROJECT_URL,
         SHOW_SIDEBAR=SHOW_SIDEBAR,
-        LLM_MODELS=LLM_MODELS
+        EXCLUDE_MODELS=EXCLUDE_MODELS
     )
 
 #====================================================================
