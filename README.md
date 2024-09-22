@@ -176,7 +176,21 @@ Start the web ui
 ./run_assistant_ui.sh
 ```
 
-It will start a browser in your local machine. `./run_assistant_ui.sh -h` for more info
+It will start a browser in your local machine. `./run_assistant_ui.sh -h` for more info. If you do not want to start a browser, run:
+
+```
+$ ./run_assistant_ui.sh no
+OK: streamlit is installed
+Starting streamlit without opening a browser
+
+  You can now view your Streamlit app in your browser.
+
+  Local URL: http://localhost:8502
+  Network URL: http://192.168.1.151:8502
+  External URL: http://69.242.124.106:8502
+```
+
+Then, point your browser to the URL
 
 # To start over
 
