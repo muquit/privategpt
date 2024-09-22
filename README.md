@@ -210,6 +210,24 @@ from [llama3 8b](https://ollama.com/library/llama3) model without GPU:
 
 ![dracula_qwen2](./screenshots/dracula_qwen2.png)
 
+# Markdown documents
+
+Say you want to ask questions about this project.
+
+```
+cp README.md ./documents
+```
+
+It will require 2 python modules
+
+```
+pip3 install unstructured
+pip3 install markdown
+./ingest.sh
+```
+
+![README_llama3](./screenshots/privategpt.png)
+
 # EPUB documents
 
 I played with some epub documents from https://www.gutenberg.org/ and the results seems to vary based
