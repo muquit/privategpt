@@ -12,13 +12,13 @@ Please look at ChangeLog for details for what is changed.
 It's a private repository at this time. Here are the steps to clone it over https. Only collaborators can access the repo.
 
 - Click on the profile at the upper right corner
-- Click on Settings
-- Click on Developer Settings
-- Click on Personal access tokens
+- Click on **Settings**
+- Click on **Developer Settings** all the way at the bottom
+- Click on **Personal access tokens**
 - Tokens classic
 - Generate a classic token
 - Copy it, store it, you won’t be able to see it again
-- Now clone the report over https, add the access token after https.
+- Now clone the repo over https, add the access token after https.
 - git clone https://your_access_token@github.com/muquit/privategpt.git
 
 # Requirements
