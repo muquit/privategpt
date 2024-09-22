@@ -23,7 +23,7 @@ SHOW_PROJECT_URL = True
 # sidebar
 SHOW_SIDEBAR = True
 
-# put your documetns in ./documents directory
+# put your documents in ./documents directory
 DOCUMENT_DIR = os.path.join(PROJECT_ROOT, 'documents')
 
 # database will be created in ./db directory
