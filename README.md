@@ -9,7 +9,10 @@ Please look at ChangeLog for details for what is changed.
 
 # How to clone the repo
 
-It's a private repository at this time. Here are the steps to clone it over https. Only collaborators can access the repo.
+It is a private repository at this time. It will be public when I am done with playing around with it. Here are the steps to clone it over https. Only collaborators can access the repo.
+You must obtain a Access Token first in order to clone the repo.
+
+Please look at information on how to clone a private repository at: https://docs.github.com/en/repositories/creating-and-managing-repositories/troubleshooting-cloning-errors
 
 - Click on the profile at the upper right corner
 - Click on **Settings**
@@ -21,6 +24,7 @@ It's a private repository at this time. Here are the steps to clone it over http
 - Now clone the repo over https, add the access token after https.
 - git clone https://your_access_token@github.com/muquit/privategpt.git
 - `cd privategpt`
+
 
 # Requirements
 
