@@ -5,7 +5,7 @@ An on-premises ML-powered Retrieval-Augmented Generation (RAG) application. It u
 This project is based on ollama example code at:
 https://github.com/ollama/ollama/tree/main/examples/langchain-python-rag-privategpt
 
-Please look at ChangeLog for details for what is changed.
+Please look at [ChangeLog](ChangeLog.md).for details for what is changed.
 
 # How to clone the repo
 

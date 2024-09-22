@@ -6,14 +6,15 @@
 
 # v1.0.2
 
-* Use config file
+* Could not make the code in ollama to work, so I updated the code and also
+using newer version of pythong module.
+
+* Use config file 
 
 * Add logging
 
 * Use latest langchain and langchain_community modules and API
 
 * create streamlit based web app
-
-TODO, add more info ...
 
 (Sep-15-2024)
