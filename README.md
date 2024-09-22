@@ -32,6 +32,12 @@ It's a private repository at this time. Here are the steps to clone it over http
 ## Install ollama
 
 - First of all you have to install [ollama](https://ollama.com) on your system.
+- To check if ollama is running, point your browser to `http://127.0.0.1:11434`. You should see:
+
+```
+Ollama is running
+```
+
 - Then install 2 Large Language Models (LLMS), I use mistral and llama3. Here is how to install and query models. You can run any model from ollama page. It is also possible to convert any GGUF models from huggingface to ollama modes and use them. I will add instructions on how to do that ...
 
 ```
