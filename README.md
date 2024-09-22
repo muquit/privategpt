@@ -282,6 +282,13 @@ pip3 install pandoc
 
 Copy documents in ./documents directory at the base of the project
 
+# TODO
+* Add list of document files in sidebar
+* Command line console client
+* Cache more things in Streamlit
+* Windows Port
+* etc...
+
 # License
 
 MIT License
