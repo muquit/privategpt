@@ -95,7 +95,7 @@ streamlit
 To install the modules:
 
 ```
-pip3 install -r ./requirement.txt
+pip3 install -r ./requirements.txt
 ```
 
 # Configuration file
