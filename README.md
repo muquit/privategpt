@@ -122,7 +122,7 @@ import sys
 current_file_path = os.path.abspath(__file__)
 VERSION="1.0.2"
 
-# Change if ollama is running on a different system on
+# Change if ollama is running on a different system on 
 # your network or somewhere in the cloud. Please look
 # at ollama document and FAQ on how ollama can bind
 # to all network interfaces.
@@ -134,7 +134,7 @@ PROJECT_URL = "https://github.com/muquit/privategpt"
 # Set it to False if you do not want to display the project
 # URL in web app
 SHOW_PROJECT_URL = True
-# If you installed various LLMs, a specific model can be picked from
+# If you installed various LLMs, a specific model can be picked from 
 # sidebar
 SHOW_SIDEBAR = True
 
@@ -150,12 +150,12 @@ TARGET_SOURCE_CHUNKS = 4
 EMBEDDINGS_MODEL_NAME = "all-MiniLM-L6-v2"
 
 # Log files, Change
-LOG_FILE_INGEST = "/tmp/docs_ingest.log"
-LOG_FILE_CHAT = "/tmp/private_gpt.log"
+LOG_FILE_INGEST = os.path.join(PROJECT_ROOT, 'docs_ingest.log')
+LOG_FILE_CHAT = os.path.join(PROJECT_ROOT, 'private_gpt.log')
 
-# All the loaded models will be displayed on sidebar. To exclude
-# any model, add it in the list below, for example, there is no
-# reason to display an embedding model in the list.
+# All the loaded models will be displayed on the sidebar. To exclude
+# any model, add in the list below, for example, there is no
+# reason to display an embedding model in the list for example.
 #EXCLUDE_MODELS = []
 EXCLUDE_MODELS = ["nomic-embed-text:latest", "qwen2:7b"]
 ```

@@ -35,8 +35,8 @@ TARGET_SOURCE_CHUNKS = 4
 EMBEDDINGS_MODEL_NAME = "all-MiniLM-L6-v2"
 
 # Log files, Change
-LOG_FILE_INGEST = "/tmp/docs_ingest.log"
-LOG_FILE_CHAT = "/tmp/private_gpt.log"
+LOG_FILE_INGEST = os.path.join(PROJECT_ROOT, 'docs_ingest.log')
+LOG_FILE_CHAT = os.path.join(PROJECT_ROOT, 'private_gpt.log')
 
 # All the loaded models will be displayed on the sidebar. To exclude
 # any model, add in the list below, for example, there is no
