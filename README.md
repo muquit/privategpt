@@ -7,6 +7,20 @@ https://github.com/ollama/ollama/tree/main/examples/langchain-python-rag-private
 
 Please look at ChangeLog for details for what is changed.
 
+# How to clone the repo
+
+It's a private repository at this time. Here are the steps to clone it over https. Only collaborators can access the repo.
+
+- Click on the profile at the upper right corner
+- Click on Settings
+- Click on Developer Settings
+- Click on Personal access tokens
+- Tokens classic
+- Generate a classic token
+- Copy it, store it, you won’t be able to see it again
+- Now clone the report over https, add the access token after https.
+- git clone https://your_access_token@github.com/muquit/privategpt.git
+
 # Requirements
 
 - [ollama](https://ollama.com)
@@ -26,6 +40,7 @@ ollama list
 ollama run mistral
 /bye to exit
 ```
+
 In my system:
 
 ```
@@ -36,8 +51,8 @@ nomic-embed-text:latest	0a109f422b47	274 MB	4 weeks ago
 llama3:latest          	365c0bd3c000	4.7 GB	8 weeks ago
 mistral:latest         	f974a74358d6	4.1 GB	8 weeks ago
 ```
-The models will be displayed in the select list in the sidebar. To ignore any model, add it in the list in `config.py` with `EXCLUDE_MODELS`
 
+The models will be displayed in the select list in the sidebar. To ignore any model, add it in the list in `config.py` with `EXCLUDE_MODELS`
 
 ## Install python modules
 
@@ -95,7 +110,7 @@ import sys
 current_file_path = os.path.abspath(__file__)
 VERSION="1.0.2"
 
-# Change if ollama is running on a different system on 
+# Change if ollama is running on a different system on
 # your network or somewhere in the cloud. Please look
 # at ollama document and FAQ on how ollama can bind
 # to all network interfaces.
@@ -107,7 +122,7 @@ PROJECT_URL = "https://github.com/muquit/privategpt"
 # Set it to False if you do not want to display the project
 # URL in web app
 SHOW_PROJECT_URL = True
-# If you installed various LLMs, a specific model can be picked from 
+# If you installed various LLMs, a specific model can be picked from
 # sidebar
 SHOW_SIDEBAR = True
 
@@ -148,7 +163,9 @@ copy file.pdf ./documents
 ```
 ./ingest/ingest.py or ./ingest.sh
 ```
+
 The vector database will be created in `/db` directory as configured in `config.py`.
+
 # Query your document
 
 Start the web ui
