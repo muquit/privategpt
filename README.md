@@ -20,6 +20,7 @@ It's a private repository at this time. Here are the steps to clone it over http
 - Copy it, store it, you won’t be able to see it again
 - Now clone the repo over https, add the access token after https.
 - git clone https://your_access_token@github.com/muquit/privategpt.git
+- `cd privategpt`
 
 # Requirements
 
