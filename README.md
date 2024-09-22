@@ -149,8 +149,8 @@ EMBEDDINGS_MODEL_NAME = "all-MiniLM-L6-v2"
 LOG_FILE_INGEST = "/tmp/docs_ingest.log"
 LOG_FILE_CHAT = "/tmp/private_gpt.log"
 
-# All the loaded will be displayed. To exclude
-# any model, add in the list below, for example, there is no
+# All the loaded models will be displayed on sidebar. To exclude
+# any model, add it in the list below, for example, there is no
 # reason to display an embedding model in the list.
 #EXCLUDE_MODELS = []
 EXCLUDE_MODELS = ["nomic-embed-text:latest", "qwen2:7b"]
