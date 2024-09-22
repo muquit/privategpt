@@ -287,6 +287,7 @@ Copy documents in ./documents directory at the base of the project
 * Command line console client
 * Cache more things in Streamlit
 * Windows Port
+* Create a docker image
 * etc...
 
 # License
