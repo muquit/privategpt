@@ -230,7 +230,10 @@ It will require 2 python modules
 pip3 install unstructured
 pip3 install markdown
 ./ingest.sh
+./run_assistant_ui.sh
 ```
+
+Ask a question about the project
 
 ![README_llama3](./screenshots/privategpt.png)
 
