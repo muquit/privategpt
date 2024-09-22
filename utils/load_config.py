@@ -1,12 +1,11 @@
-
 import os
 import sys
 from types import SimpleNamespace
 
 #====================================================================
 # Load configuration using SimpleNamespace so that variables can be
-# accessed with . notation. When new variables are introducted in
-# ../config.py, updte the config import below.
+# accessed with . notation. When new variables are introduced in
+# ../config.py, update the config import and namespace.
 #
 # return configuration as SimpleNamespace
 # muquit@muquit.com Sep-15-2024 
