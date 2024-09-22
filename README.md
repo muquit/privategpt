@@ -81,6 +81,7 @@ deactivate
 ```
 $ cat requirements.txt
 tqdm
+ollama
 langchain_community
 langchain_huggingface
 langchain-chroma
