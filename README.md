@@ -179,7 +179,7 @@ It will start a browser in your local machine. `./run_assistant_ui.sh -h` for mo
 
 # To start over
 
-Remove the content of db folder and ingest documents again. Remove/Add documents in ingest/documetnts/directory. If new documents are found, they will be appended to the vector database automatically. The database folder is `asssistant/db/`
+Remove the content of db folder and ingest documents again. Remove/Add documents in `./documents` directory. If new documents are found, they will be appended to the vector database automatically. The database folder is `./db` as configured in `config.py`
 
 # Screenshot of the web ui
 
