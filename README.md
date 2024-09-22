@@ -165,7 +165,7 @@ copy file.pdf ./documents
 ./ingest/ingest.py or ./ingest.sh
 ```
 
-The vector database will be created in `/db` directory as configured in `config.py`.
+The vector database will be created in `./db` directory as configured in `config.py`.
 
 # Query your document
 
