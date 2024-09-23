@@ -7,7 +7,7 @@
 # v1.0.2
 
 * Could not make the code in ollama to work, so I updated the code and also
-using newer version of pythong module.
+using newer version of python modules.
 
 * Use config file 
 
