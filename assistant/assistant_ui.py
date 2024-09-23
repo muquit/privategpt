@@ -197,9 +197,9 @@ def doit():
                     callbacks=[stream_handler]
                 )
             
-            logger.info(f"Question: {prompt}")
-            logger.info(f"Debug - Full response: {response}")
-            logger.info(f"Debug - Response type: {type(response)}")
+#            logger.info(f"Question: {prompt}")
+#            logger.info(f"Debug - Full response: {response}")
+#            logger.info(f"Debug - Response type: {type(response)}")
             
             if isinstance(response, dict):
                 answer = response['result']
@@ -236,8 +236,14 @@ def doit():
                     st.write("Sources:")
                     for idx, doc in enumerate(source_documents):
                         with st.expander(f"Source {idx + 1}"):
-                            st.write(f"From: {doc.metadata.get('source', 'Unknown')}")
+                            meta_data = doc.metadata
+                            # get the source and page if possible
+                            source = meta_data.get('source', 'N/A')
+                            page = meta_data.get('page', 'N/A')
+                            st.write(f"From: {source}")
+                            # write the source content
                             st.write(doc.page_content)
+                            st.write(f"Page: {page}")
                     logger.info(f"Debug - Displayed {len(source_documents)} source documents")
                 else:
                     st.write("No source documents found for this query.")
