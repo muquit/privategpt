@@ -9,7 +9,7 @@ Please look at [ChangeLog](ChangeLog.md).for details for what is changed.
 
 # How to clone the repo
 
-It is a private repository at this time. It will be public when I am done with playing around with it. Here are the steps to clone it over https. Only collaborators can access the repo.
+It is a private repository at this time. It will be public when I am done playing around with it. Here are the steps to clone it over https. Only collaborators can access the repo.
 You must obtain a Access Token first in order to clone the repo.
 
 Please look at information on how to clone a private repository at: https://docs.github.com/en/repositories/creating-and-managing-repositories/troubleshooting-cloning-errors
