@@ -67,13 +67,13 @@ The models will be displayed in the select list in the sidebar. To ignore any mo
 
 ## Install python modules
 
-- Create python virtual environment first. Do not install the modules globally in your system, it can break things.
+- Create python virtual environment first. **Do not install the modules globally in your system, it can break things.**
 
 ```
 python3 -m venv pvenv
 ```
 
-If virtual environemnt module is not installed, follow the help message to install it and then create the envionment.
+If virtual environemnt module is not installed, follow the help message to install it and then create the envionment. In Ubuntu, you might see the message to install `apt install python3.12-venv`. So, do that first and then go back to the previous step to create the python3 virtual environment.
 
 - Activate virtual environment. In Linux, Mac
 
@@ -173,7 +173,7 @@ copy file.pdf ./documents
 - Vectorize
 
 ```
-./ingest/ingest.py or ./ingest.sh
+python3 ./ingest/ingest.py or ./ingest.sh
 ```
 
 The vector database will be created in `./db` directory as configured in `config.py`.
@@ -183,12 +183,16 @@ The vector database will be created in `./db` directory as configured in `config
 Start the web ui
 
 ```
+streamlit run ./assistant/assistant_ui.py
+or
 ./run_assistant_ui.sh
 ```
 
 It will start a browser in your local machine. `./run_assistant_ui.sh -h` for more info. If you do not want to start a browser, run:
 
 ```
+streamlit run ./assistant/assistant_ui.py --server.headless true
+or
 $ ./run_assistant_ui.sh no
 OK: streamlit is installed
 Starting streamlit without opening a browser
