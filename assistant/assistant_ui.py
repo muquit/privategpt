@@ -240,7 +240,10 @@ def doit():
                             # get the source and page if possible
                             source = meta_data.get('source', 'N/A')
                             page = meta_data.get('page', 'N/A')
-                            st.write(f"From: {source}")
+                            filename = os.path.basename(source)
+                            styled = f'<span style="color:purple">{filename}</span>'
+#                            st.write(f"From: {source}")
+                            st.write(f"Local Source: {styled}", unsafe_allow_html=True)
                             # write the source content
                             st.write(doc.page_content)
                             st.write(f"Page: {page}")
