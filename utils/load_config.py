@@ -20,6 +20,8 @@ def load_config():
     # import configuration variables from ../config.py
     # update this when new variables are introduced
     from config import (
+        APP_TITLE,
+        APP_DESCRIPTION,
         VERSION,
         DOCUMENT_DIR, 
         PERSIST_DIRECTORY, 
@@ -34,11 +36,14 @@ def load_config():
         PROJECT_URL,
         SHOW_PROJECT_URL,
         SHOW_SIDEBAR,
-        EXCLUDE_MODELS
+        EXCLUDE_MODELS,
+        ASK_ME_TEXT
     )
 
     # return configuration as a SimpleNamespace object
     return SimpleNamespace(
+        APP_TITLE=APP_TITLE,
+        APP_DESCRIPTION=APP_DESCRIPTION,
         VERSION=VERSION,
         DOCUMENT_DIR=DOCUMENT_DIR,
         PERSIST_DIRECTORY=PERSIST_DIRECTORY,
@@ -53,7 +58,8 @@ def load_config():
         PROJECT_URL=PROJECT_URL,
         SHOW_PROJECT_URL=SHOW_PROJECT_URL,
         SHOW_SIDEBAR=SHOW_SIDEBAR,
-        EXCLUDE_MODELS=EXCLUDE_MODELS
+        EXCLUDE_MODELS=EXCLUDE_MODELS,
+        ASK_ME_TEXT=ASK_ME_TEXT
     )
 
 #====================================================================

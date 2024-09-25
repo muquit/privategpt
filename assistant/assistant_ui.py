@@ -67,7 +67,7 @@ def doit():
         </style>
         """, unsafe_allow_html=True)
 
-        APP_TITLE = "Private Documents Assistant"
+        APP_TITLE = conf.APP_TITLE
         url_line = f'<br><a href="{conf.PROJECT_URL}" target="_blank" style="font-style: italic; font-weight: normal;">{conf.PROJECT_URL}</a>' if conf.SHOW_PROJECT_URL else ''
 
         logger.info(f"URL line: {url_line}")
@@ -76,7 +76,7 @@ def doit():
         <div class="centered">
             <h2>{APP_TITLE}</h2>
             <p style='font-size: 0.9em; font-weight: bold;'>
-            An on-premises private documents assistant with ollama{url_line}
+            {conf.APP_DESCRIPTION}{url_line}
             </p>
         </div>
         """, unsafe_allow_html=True)
@@ -181,7 +181,7 @@ def doit():
             st.markdown(message["content"])
 
     # input
-    if prompt := st.chat_input("Ask me anything about your documents", key="user_input"):
+    if prompt := st.chat_input(conf.ASK_ME_TEXT, key="user_input"):
         st.session_state.conversation.append({"role": "user", "content": prompt})
         with st.chat_message("user"):
             st.markdown(prompt)
@@ -241,9 +241,10 @@ def doit():
                             source = meta_data.get('source', 'N/A')
                             page = meta_data.get('page', 'N/A')
                             filename = os.path.basename(source)
-                            styled = f'<span style="color:purple">{filename}</span>'
-#                            st.write(f"From: {source}")
-                            st.write(f"Local Source: {styled}", unsafe_allow_html=True)
+#                            styled = f'<span style="color:purple">{filename}</span>'
+                            styled = f'<span style="font-weight:bold">{filename}</span>'
+#                            styled=f'<span font-style: italic; font-weight: bold</span>';
+                            st.write(f"From: {styled}", unsafe_allow_html=True)
                             # write the source content
                             st.write(doc.page_content)
                             st.write(f"Page: {page}")
