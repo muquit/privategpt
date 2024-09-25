@@ -1,4 +1,4 @@
-#!/usr/bin/env
+#!/usr/bin/env python3
 #====================================================================
 # requires 'pip install rich'
 # muquit@muquit.com Sep-25-2024 
