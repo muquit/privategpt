@@ -32,5 +32,6 @@ def list_chroma_metadata(persistence_directory):
         console.print(Panel(table))
 
 if __name__ == "__main__":
+    # change if needed
     db_path = "./db"
     list_chroma_metadata(db_path)

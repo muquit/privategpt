@@ -20,5 +20,6 @@ def list_chroma_metadata(persistence_directory):
 
 if __name__ == "__main__":
     # Replace with the path to your Chroma database
+    # default is ./db in config.py
     db_path = "./db"
     list_chroma_metadata(db_path)
