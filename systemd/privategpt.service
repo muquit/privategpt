@@ -1,0 +1,40 @@
+########################################################################
+# systemd unit file to start privategpt as a service
+# A quick hack for myself.
+#
+# ln -s ${HOME}/gitdev/privategpt/systemd/privategpt.service \
+#    /etc/systemd/system/
+# systemctl enable privategpt
+# systemctl start privategpt
+#
+# Sep-27-2024 
+# https://github.com/muquit/privategpt
+########################################################################
+[Unit]
+Description=An on-premises document assistant using ollama
+Documentation=https://github.com/muquit/privategpt
+After=network.target network-online.target
+
+[Service]
+Type=simple
+StandardOutput=journal
+# start script
+# change
+ExecStart=/home/muquit/gitdev/privategpt/systemd/privategpt.sh
+Restart=always
+
+# change
+User=muquit
+Group=muquit
+
+Environment=PATH=/usr/bin:/usr/local/bin
+WorkingDirectory=/home/muquit/gitdev/privategpt
+
+# stopping
+KillSignal=SIGINT
+TimeoutStopSec=30
+
+[Install]
+WantedBy=multi-user.target
+
+
