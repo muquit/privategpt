@@ -169,6 +169,42 @@ def does_vectorstore_exist(persist_directory: str) -> bool:
     
     return False
 
+#==================================================================== 
+# Use dynamic batch size. I've seen in some old windows sytem an
+# exception is thrown:
+#  ValueError: Batch size 2076 exceeds maximum batch size 166
+# catch the erorr and adjust the batch size
+#==================================================================== 
+def create_or_update_db(texts, embeddings, persist_directory, initial_batch_size=1000):
+    db = None
+    batch_size = initial_batch_size
+    i = 0
+
+    with tqdm(total=len(texts), desc="Processing documents") as pbar:
+        while i < len(texts):
+            try:
+                batch = texts[i:i+batch_size]
+                if db is None:
+                    db = Chroma.from_documents(batch, embeddings, persist_directory=persist_directory)
+                else:
+                    db.add_documents(batch)
+                i += len(batch)
+                pbar.update(len(batch))
+            except ValueError as e:
+                if "Batch size" in str(e) and "exceeds maximum batch size" in str(e):
+                    # extract the maximum batch size from the error message
+                    max_size = int(str(e).split("maximum batch size")[-1].strip())
+                    batch_size = max_size
+                    # the system cannot handle large batch size, adjust
+                    # muquit@muquit.com Sep-29-2024 
+                    logger.info(f"Adjusting batch size to {batch_size}")
+                else:
+                    raise  # re-raise if it's not a batch size error
+            except Exception as e:
+                logger.info(f"Error processing batch: {str(e)}")
+                break
+    return db
+
 def main():
     conf = load_config()
     logger = setup_logging(conf.LOG_FILE_INGEST)
@@ -197,6 +233,7 @@ def main():
     embeddings = HuggingFaceEmbeddings(model_name=conf.EMBEDDINGS_MODEL_NAME)
 
     logger.info(f"persistent directory: {conf.PERSIST_DIRECTORY}")
+
     if does_vectorstore_exist(conf.PERSIST_DIRECTORY):
         # Update and store locally vectorstore
         logger.info(f"Appending to existing vectorstore at {persist_directory}")
@@ -209,13 +246,13 @@ def main():
         collection = db.get()
         texts = process_documents(conf, logger, [metadata['source'] for metadata in collection['metadatas']])
         logger.info("Creating embeddings. It May take few minutes...")
-        db.add_documents(texts)
+        db = create_or_update_db(texts, embeddings, conf.PERSIST_DIRECTORY, initial_batch_size=2076)
     else:
-        # Create and store locally vectorstore
+        # create and store locally vectorstore
         logger.info("Creating new vectorstore")
         texts = process_documents(conf, logger)
         logger.info("Creating embeddings. It may take few minutes...")
-        db = Chroma.from_documents(texts, embeddings, persist_directory=conf.PERSIST_DIRECTORY)
+        db = create_or_update_db(texts, embeddings, conf.PERSIST_DIRECTORY, initial_batch_size=2076)
     # no need to call db.persist() anymore, it is the default now
     db = None
 

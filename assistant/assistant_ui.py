@@ -17,6 +17,7 @@ import sys
 
 import streamlit as st
 import ollama
+from ollama import Client
 from streamlit.runtime.scriptrunner import get_script_run_ctx
 
 from langchain.chains import RetrievalQA
@@ -48,14 +49,24 @@ sys.path.insert(0, project_root)
 from utils.load_config import load_config
 from utils.logging import setup_logging
 
+# use Client instead of ollama.list(). If ollama is running on a 
+# remote host, ollama.list() uses default URL
+# cache the call
+@st.cache_resource
+def get_ollama_client(url):
+    return Client(host=url)
+
 def doit():
     conf = load_config()
     logger = setup_logging(conf.LOG_FILE_CHAT)
-
     logger.info(f"Starting {conf.VERSION}")
+    logger.info(f"ollama URL {conf.OLLAMA_URL}")
+
+    # get the client for listing
+    ollama_client = get_ollama_client(conf.OLLAMA_URL)
 
     @st.cache_resource
-    def print_header():
+    def print_header(conf):
         st.markdown("""
         <style>
         .centered {
@@ -107,11 +118,11 @@ def doit():
     st.sidebar.title("Configuration")
 
     # get the list of models
-    all_models = [model["name"] for model in ollama.list()["models"]]
+    logger.info(f"Listing models from ollama ...")
+    all_models = [model["name"] for model in ollama_client.list()["models"]]
     models = [model for model in all_models if model not in conf.EXCLUDE_MODELS]
 
     # select the first model in the list as default
-#    st.session_state["model"] = st.sidebar.selectbox("Choose your model", models, index=0)
     model = st.sidebar.selectbox("Choose your model", models, index=0)
     
     # model to use for vectorizing texts
@@ -121,7 +132,7 @@ def doit():
     hide_source = st.sidebar.checkbox("Hide Source", value=False)
 
     # print the header first
-    print_header()
+    print_header(conf)
 
     @st.cache_resource(show_spinner=False)
     def get_embeddings(model_name):
@@ -132,7 +143,6 @@ def doit():
     def initialize_qa(model, embeddings_model_name, hide_source):
         logger.info("Initializing QA ...")
         embeddings = get_embeddings(embeddings_model_name)
-#        embeddings = HuggingFaceEmbeddings(model_name=embeddings_model_name)
         db = Chroma(persist_directory=conf.PERSIST_DIRECTORY, embedding_function=embeddings)
         doc_count = db._collection.count()
         if doc_count == 0:

@@ -18,3 +18,13 @@ using newer version of python modules.
 * create streamlit based web app
 
 (Sep-15-2024)
+
+* In an old Windows system without GPU, during ingestion, I've seen an error
+ValueError: Batch size 2076 exceeds maximum batch size 166. Therefore,
+dynamically adjust batch size if this kind of exception occurs.
+(Sep-29-2024)
+
+* In assistant ui, use ollama client to list models instead of ollama.list().
+Specify OLLAMA_URL from config.py for the client.
+(Sep-29-2024)
+
