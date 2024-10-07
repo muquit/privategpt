@@ -116,13 +116,14 @@ The models will be displayed in the select list in the sidebar. To ignore any mo
 
 - Create python virtual environment first. **Do not install the modules globally in your system, it can break things.**
 
+### Linux/MacOS
 ```
 python3 -m venv pvenv
 ```
 
 If virtual environemnt module is not installed, follow the help message to install it and then create the envionment. In Ubuntu, you might see the message to install `apt install python3.12-venv`. So, do that first and then go back to the previous step to create the python3 virtual environment.
 
-- Activate virtual environment. In Linux, Mac
+- Activate virtual environment
 
 ```
 source pvenv/bin/activate
@@ -134,10 +135,27 @@ source pvenv/bin/activate
 deactivate
 ```
 
+### Windows
+```
+python3 -m venv pvenv
+```
+
+- Activate virtual environment
+
+```
+pvenv\Scripts\activate
+```
+
+- If you need to deactive virtual env
+
+```
+pvenv\Scripts\deactivate
+```
+
 - Install python modules. The following modulles and their dependencies will be installed in the virtual environment.
 
 ```
-$ cat requirements.txt
+$ more requirements.txt
 tqdm
 ollama
 langchain_community
@@ -152,12 +170,12 @@ streamlit
 To install the modules:
 
 ```
-pip3 install -r ./requirements.txt
+pip3 install -r requirements.txt
 ```
 
 # Configuration file
 
-Update `config.py` if needed:
+Look at `config.py` and update `config.py` if needed:
 
 ```
 import os
