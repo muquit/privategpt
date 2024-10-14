@@ -2,7 +2,8 @@
 
 #==================================================================== 
 # It's an OpenSource RAG application that uses ollama
-# https://muquit.com/ for source and project info
+# https://github.com/muquit/privategpt for source
+# https://muquit.com/
 #==================================================================== 
 
 """

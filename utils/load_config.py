@@ -36,6 +36,7 @@ def load_config():
         PROJECT_URL,
         SHOW_PROJECT_URL,
         SHOW_SIDEBAR,
+        DEFAULT_MODEL,
         EXCLUDE_MODELS,
         ASK_ME_TEXT
     )
@@ -58,6 +59,7 @@ def load_config():
         PROJECT_URL=PROJECT_URL,
         SHOW_PROJECT_URL=SHOW_PROJECT_URL,
         SHOW_SIDEBAR=SHOW_SIDEBAR,
+        DEFAULT_MODEL=DEFAULT_MODEL,
         EXCLUDE_MODELS=EXCLUDE_MODELS,
         ASK_ME_TEXT=ASK_ME_TEXT
     )

@@ -1,3 +1,6 @@
+## Contents
+- [v1.0.2](#v102)
+
 <!-- TOC -->
 
 - [v1.0.2](#v102)
@@ -29,4 +32,9 @@ dynamically adjust batch size if this kind of exception occurs.
 Specify OLLAMA_URL from config.py for the client.
 
 (Sep-29-2024)
+
+* Add command line client assistant/assistant_console.py
+
+(Oct-12-2024)
+
 

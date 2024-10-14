@@ -38,6 +38,10 @@ EMBEDDINGS_MODEL_NAME = "all-MiniLM-L6-v2"
 LOG_FILE_INGEST = os.path.join(PROJECT_ROOT, 'docs_ingest.log')
 LOG_FILE_CHAT = os.path.join(PROJECT_ROOT, 'private_gpt.log')
 
+# default LLM  for console app. web app list the loaded models
+# dynamically
+DEFAULT_MODEL = "mistral"
+
 # All the loaded models will be displayed on the sidebar. To exclude
 # any model, add in the list below, for example, there is no
 # reason to display an embedding model in the list for example.
