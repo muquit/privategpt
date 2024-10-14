@@ -24,4 +24,5 @@
     
     ---
     
-    This project is adapted from https://github.com/ollama/ollama/tree/main/examples/langchain-python-rag-privategpt
+    This project is adapted from:
+    https://github.com/ollama/ollama/tree/main/examples/langchain-python-rag-privategpt

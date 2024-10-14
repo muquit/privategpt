@@ -346,7 +346,8 @@ scripts/list_chroma_metadata_pretty.py
     
     ---
     
-    This project is adapted from https://github.com/ollama/ollama/tree/main/examples/langchain-python-rag-privategpt
+    This project is adapted from:
+    https://github.com/ollama/ollama/tree/main/examples/langchain-python-rag-privategpt
 
 ---
 * This file is assembled from markdowns/*.md with [markdown_helper](https://github.com/BurdetteLamar/markdown_helper)
