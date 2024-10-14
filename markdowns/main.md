@@ -31,4 +31,4 @@
 @[:markdown](license.md)
 
 ---
-* This file is assembled from docs/*.md with [markdown_helper](https://github.com/BurdetteLamar/markdown
+* This file is assembled from docs/*.md with [markdown_helper](https://github.com/BurdetteLamar/markdown)
