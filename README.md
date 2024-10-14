@@ -164,6 +164,8 @@ Then follow the instructions on how to install python modules and run assistant 
 
 ## Download source from releases
 
+TODO
+
 # Configuration file
 
     import os
