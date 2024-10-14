@@ -12,23 +12,18 @@
   - [Clone the repository](#clone-the-repository)
   - [Download source from releases](#download-source-from-releases)
 - [Configuration file](#configuration-file)
-- [If new variables are added, do not forget to](#if-new-variables-are-added-do-not-forget-to)
-- [add it to utils/load_config.py](#add-it-to-utilsload_configpy)
-- [Change if ollama is running on a different system on](#change-if-ollama-is-running-on-a-different-system-on)
-- [your network or somewhere in the cloud. Please look](#your-network-or-somewhere-in-the-cloud-please-look)
-- [at ollama document and FAQ on how ollama can bind](#at-ollama-document-and-faq-on-how-ollama-can-bind)
-- [to all network interfaces.](#to-all-network-interfaces)
-- [By default use localhost (127.0.0.1)](#by-default-use-localhost-127001)
-- [put your documents in ./documents directory](#put-your-documents-in-documents-directory)
-- [database will be created in ./db directory](#database-will-be-created-in-db-directory)
-- [Log files, Change](#log-files-change)
-- [All the loaded models will be displayed on the sidebar. To exclude](#all-the-loaded-models-will-be-displayed-on-the-sidebar-to-exclude)
-- [any model, add in the list below, for example, there is no](#any-model-add-in-the-list-below-for-example-there-is-no)
-- [reason to display an embedding model in the list for example.](#reason-to-display-an-embedding-model-in-the-list-for-example)
 - [Query your document](#query-your-document)
   - [Web UI](#web-ui)
-  - [Command line](#command-line)
+  - [CLI](#cli)
+- [Screenshot of the web ui](#screenshot-of-the-web-ui)
+- [Run web ui as a service](#run-web-ui-as-a-service)
+  - [Linux Systemd](#linux-systemd)
+  - [Linux sysv](#linux-sysv)
+  - [MacOS](#macos)
+  - [Windows ](#windows-)
+- [List documents](#list-documents)
 - [TODO](#todo)
+- [License](#license)
 
 # Introduction
 
@@ -171,58 +166,61 @@ Then follow the instructions on how to install python modules and run assistant 
 
 # Configuration file
 
-```
-import os
-import sys
-
-# If new variables are added, do not forget to
-# add it to utils/load_config.py
-
-current_file_path = os.path.abspath(__file__)
-PROJECT_ROOT = os.path.dirname(current_file_path)
-VERSION="1.0.2"
-
-APP_TITLE = "Privat Documents Assistant"
-APP_DESCRIPTION = "An on-premises private documents assistant with ollama"
-PROJECT_URL = "https://github.com/muquit/privategpt"
-SHOW_PROJECT_URL = False
-SHOW_SIDEBAR = True
-ASK_ME_TEXT = "Ask me anything about your documents"
-
-# Change if ollama is running on a different system on
-# your network or somewhere in the cloud. Please look
-# at ollama document and FAQ on how ollama can bind
-# to all network interfaces.
-# By default use localhost (127.0.0.1)
-OLLAMA_URL = "http://127.0.0.1:11434"
-
-
-# put your documents in ./documents directory
-DOCUMENT_DIR = os.path.join(PROJECT_ROOT, 'documents')
-
-# database will be created in ./db directory
-PERSIST_DIRECTORY = os.path.join(PROJECT_ROOT, 'db')
-
-CHUNK_SIZE = 500
-OVERLAP = 50
-TARGET_SOURCE_CHUNKS = 4
-EMBEDDINGS_MODEL_NAME = "all-MiniLM-L6-v2"
-
-# Log files, Change
-LOG_FILE_INGEST = os.path.join(PROJECT_ROOT, 'docs_ingest.log')
-LOG_FILE_CHAT = os.path.join(PROJECT_ROOT, 'private_gpt.log')
-
-# All the loaded models will be displayed on the sidebar. To exclude
-# any model, add in the list below, for example, there is no
-# reason to display an embedding model in the list for example.
-#EXCLUDE_MODELS = []
-EXCLUDE_MODELS = ["nomic-embed-text:latest", "qwen2:7b"]
-
-```
+    import os
+    import sys
+    
+    # If new variables are added, do not forget to
+    # add it to utils/load_config.py
+    
+    current_file_path = os.path.abspath(__file__)
+    PROJECT_ROOT = os.path.dirname(current_file_path)
+    VERSION="1.0.2"
+    
+    APP_TITLE = "Privat Documents Assistant"
+    APP_DESCRIPTION = "An on-premises private documents assistant with ollama"
+    PROJECT_URL = "https://github.com/muquit/privategpt"
+    SHOW_PROJECT_URL = False
+    SHOW_SIDEBAR = True
+    ASK_ME_TEXT = "Ask me anything about your documents"
+    
+    # Change if ollama is running on a different system on 
+    # your network or somewhere in the cloud. Please look
+    # at ollama document and FAQ on how ollama can bind
+    # to all network interfaces.
+    # By default use localhost (127.0.0.1)
+    OLLAMA_URL = "http://127.0.0.1:11434"
+    
+    
+    # put your documents in ./documents directory
+    DOCUMENT_DIR = os.path.join(PROJECT_ROOT, 'documents')
+    
+    # database will be created in ./db directory
+    PERSIST_DIRECTORY = os.path.join(PROJECT_ROOT, 'db')
+    
+    CHUNK_SIZE = 500
+    OVERLAP = 50
+    TARGET_SOURCE_CHUNKS = 4
+    EMBEDDINGS_MODEL_NAME = "all-MiniLM-L6-v2"
+    
+    # Log files, Change
+    LOG_FILE_INGEST = os.path.join(PROJECT_ROOT, 'docs_ingest.log')
+    LOG_FILE_CHAT = os.path.join(PROJECT_ROOT, 'private_gpt.log')
+    
+    # default LLM  for console app. web app list the loaded models
+    # dynamically
+    DEFAULT_MODEL = "mistral"
+    
+    # All the loaded models will be displayed on the sidebar. To exclude
+    # any model, add in the list below, for example, there is no
+    # reason to display an embedding model in the list for example.
+    #EXCLUDE_MODELS = []
+    EXCLUDE_MODELS = ["nomic-embed-text:latest", "qwen2:7b"]
+    
 
 # Query your document
 
 The document can be queried from a web ui or from command line
+
 
 ## Web UI
 
@@ -234,7 +232,7 @@ or
 ./run_assistant_ui.sh
 ```
 
-It will start a browser in your local machine. `./run_assistant_ui.sh -h` for more info. If you do not want to start a browser, run:
+It will start a browser in your local machine. `./run_assistant_ui.sh -h` for more info. If you do not want to   start a browser, run:
 
 ```
 streamlit run ./assistant/assistant_ui.py --server.headless true
@@ -250,49 +248,103 @@ Starting streamlit without opening a browser
   External URL: http://xxx.xxx.xxx.xxx:8502
 ```
 
-## Command line
+## CLI
 
 ```
+usage: assistant_cli.py [-h] [--hide-source] [--mute-stream] [--model MODEL]
+
+privategpt: Ask questions to your documents without an internet connection,
+using the power of LLMs.
+
+options:
+  -h, --help            show this help message and exit
+  --hide-source, -S     Use this flag to disable printing of source documents
+                        used for answers.
+  --mute-stream, -M     Use this flag to disable the streaming StdOut callback
+                        for LLMs.
+  --model MODEL, -m MODEL
+                        Specify the model to use. Defaults to the value set in
+                        config.py.
 ```
 
-Then, point your browser to the URL or share the URL with your colleagues.
+# Screenshot of the web ui
+
+A response for a question about one of the documents. Sources show the chunks found in the similarity search in the database. The chunks are then sent to the locall LLM and the model summerized the chunks as reponse at the top.
+
+from [mistral 7.2B](https://ollama.com/library/mistral) model without GPU:
+
+![dracula_mistral](./screenshots/dracula_mistral.png)
+
+from [llama3 8b](https://ollama.com/library/llama3) model without GPU:
+
+![dracula_llama3](./screenshots/dracula_llama3.png)
+
+![dracula_qwen2](./screenshots/dracula_qwen2.png)
+
+# Run web ui as a service
+## Linux Systemd
+
+Please look at `systemd/` directory. It needs some cleaning up but it works
+
+## Linux sysv
+
+TODO
+
+## MacOS
+
+TODO
+
+## Windows 
+
+TODO
+
+# List documents
+
+To list documents in chromadb, use the following scripts
+
+```
+scripts/list_chroma_metadata.py
+scripts/list_chroma_metadata_files.py
+scripts/list_chroma_metadata_json.py
+scripts/list_chroma_metadata_pretty.py
+```
 
 # TODO
 * Describe how things work
 * Add list of document files in sidebar
-* Cache more things in Streamlit
+* Search by filtering documetns in chromadb
+* Add readline like history to CLI
 * Create a docker image
+* Run the web ui as a service for Linux, MacOS and Windows. 
 * etc...
 
-#License
+# License
 
-```
-MIT License
-
-Copyright (c) 2024 Muhammad Muquit
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
----
-
-This project is adapted from https://github.com/ollama/ollama/tree/main/examples/langchain-python-rag-privategpt
-```
+    MIT License
+    
+    Copyright (c) 2024 Muhammad Muquit
+    
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+    
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.
+    
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE.
+    
+    ---
+    
+    This project is adapted from https://github.com/ollama/ollama/tree/main/examples/langchain-python-rag-privategpt
 
 ---
 * This file is assembled from docs/*.md with [markdown_helper](https://github.com/BurdetteLamar/markdown
