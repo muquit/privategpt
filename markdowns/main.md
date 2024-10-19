@@ -2,6 +2,8 @@
 
 @[:markdown](intro.md)
 
+@[:markdown](howitworks.md)
+
 @[:markdown](contribute.md)
 
 @[:markdown](version.md)

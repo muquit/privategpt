@@ -1,5 +1,6 @@
 ## Page Contents
 - [Introduction](#introduction)
+- [How it works](#how-it-works)
 - [Contributing](#contributing)
 - [Version](#version)
 - [Requirements](#requirements)
@@ -33,6 +34,13 @@ This project is based on ollama example code at:
 https://github.com/ollama/ollama/tree/main/examples/langchain-python-rag-privategpt
 
 Please look at [ChangeLog](ChangeLog.md).for details for what is changed.
+
+# How it works
+
+![alt privategpt](images/privategpt.drawio.png "privategpt")
+
+This diagram is created by Claude AI in mermaid format from my description then I used draw.io on desktop to tweak it little bit.
+
 
 # Contributing
 
