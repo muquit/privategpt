@@ -259,14 +259,13 @@ privategpt: Ask questions to your documents without an internet connection,
 using the power of LLMs.
 
 options:
-  -h, --help            show this help message and exit
-  --hide-source, -S     Use this flag to disable printing of source documents
-                        used for answers.
-  --mute-stream, -M     Use this flag to disable the streaming StdOut callback
-                        for LLMs.
-  --model MODEL, -m MODEL
-                        Specify the model to use. Defaults to the value set in
-                        config.py.
+  -h, --help         show this help message and exit
+  --hide-source, -S  Use this flag to disable printing of source documents
+                     used for answers.
+  --mute-stream, -M  Use this flag to disable the streaming StdOut callback
+                     for LLMs.
+  --model, -m MODEL  Specify the model to use. Defaults to the value set in
+                     config.py.
 ```
 
 # Screenshot of the web ui
@@ -313,11 +312,16 @@ scripts/list_chroma_metadata_pretty.py
 
 # TODO
 * Describe how things work
-* Add list of document files in sidebar
-* Search by filtering documetns in chromadb
+* Currently all the documents in the chromadb is searched which can return wrong
+information if documents contain similar texts. Specify users to select
+documents to search and user chromadb filtering mechanism to perform the
+similarity search before sending the chunks to LLM
 * Add readline like history to CLI
 * Create a docker image
-* Run the web ui as a service for Linux, MacOS and Windows. 
+* Run the web ui as a service for Linux, MacOS and Windows. systemd unit file
+and script are in systemd directory, needs some modifying for your needs, like
+change user and group.
+* 
 * etc...
 
 # License
