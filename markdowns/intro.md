@@ -1,7 +1,7 @@
 
 **privategpt** is an OpenSource Machine Learning (ML) based application to
 query your local documents in natural language using local large Language
-Models (LLM). 
+Models (LLM). It has a web ui and a cli for querying documents.
 
 # Introduction
 
