@@ -164,6 +164,31 @@ mistral:latest          f974a74358d6    4.1 GB  8 weeks ago
 The models will be displayed in the select list in the sidebar. To ignore 
 any model, add it in the list in `config.py` with `EXCLUDE_MODELS`
 
+[ollama](https://ollama.com) will use GPU if your system has it. To check do this:
+
+```
+ollama run mistral
+/bye
+ollama ps
+```
+If your system does not have GPU, the output will look like:
+
+```
+ollama ps
+NAME              ID              SIZE      PROCESSOR    UNTIL
+mistral:latest    f974a74358d6    5.9 GB    100% CPU     4 minutes from now
+```
+
+If your system has GPU, the output might look like:
+
+```
+NAME              ID              SIZE      PROCESSOR    UNTIL
+mistral:latest    f974a74358d6    6.4 GB    100% GPU     4 minutes from now
+```
+
+If your system has GPU, the inference will be faster.
+
+
 ## Install python modules
 
 ### Create Python Virtual Environment
