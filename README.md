@@ -58,8 +58,8 @@ The project was initially based on the
 [privateGPT](https://github.com/ollama/ollama/tree/main/examples/langchain-python-rag-privategpt)
 example from the ollama gitHub repo, which demonstrated impressive results 
 with local document querying. But the original example became outdated 
-and stopped working, this project aimed to revive and improve upon the 
-concept.
+and at one point it stopped working, this project aimed to revive and 
+improve upon the concept.
 
 Efforts were made to ensure the application works across Linux, Mac, and 
 Windows platforms, with improved documentation on RAG functionality.
