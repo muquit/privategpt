@@ -1,5 +1,7 @@
 ## Install python modules
 
+### Create Python Virtual Environment
+
 - Create python virtual environment first. **Do not install the modules globally in your system, it can break things.**
 
 ### Linux/MacOS
@@ -37,6 +39,8 @@ pvenv\Scripts\activate
 ```
 pvenv\Scripts\deactivate
 ```
+
+### Install Python Modules
 
 - Install python modules. The following modulles and their dependencies will be installed in the virtual environment.
 
