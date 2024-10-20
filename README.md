@@ -23,6 +23,7 @@
   - [MacOS](#macos)
   - [Windows ](#windows-)
 - [List documents](#list-documents)
+- [Known Issues](#known-issues)
 - [Roadmap/TODO](#roadmaptodo)
 - [License](#license)
 
@@ -371,11 +372,22 @@ scripts/list_chroma_metadata_json.py
 scripts/list_chroma_metadata_pretty.py
 ```
 
+# Known Issues
+
+Currently all the documents in the chromadb are searched for simillarity, 
+which can return wrong information if documents contain similar texts. 
+Please look at the returned **Source** to make sure the response is correct.
+
+[Roadmap/TODO](#roadmaptodo) is to allow to select documents to 
+search for similarity and use chromadb's filtering mechanism to perform the 
+similarity search before sending the chunks to LLM.
+
+
 # Roadmap/TODO
-* Currently all the documents in the chromadb is searched which can return wrong
-information if documents contain similar texts. Specify users to select
-documents to search and user chromadb filtering mechanism to perform the
-similarity search before sending the chunks to LLM
+* Currently all the documents in the chromadb are searched which can return wrong
+information if documents contain similar texts. Allow to select
+one or more documents to search and use chromadb's filtering mechanism to perform the
+similarity search before sending the chunks to LLM.
 
 * Support other OpenSource vector database like [qdrant](https://github.com/qdrant/qdrant)
 

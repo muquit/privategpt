@@ -36,6 +36,8 @@
 
 @[:markdown](list_docs.md)
 
+@[:markdown](known_issues.md)
+
 @[:markdown](todo.md)
 
 @[:markdown](license.md)
