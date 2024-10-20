@@ -1,5 +1,6 @@
 ## Page Contents
 - [Introduction](#introduction)
+- [Background and Motivation](#background-and-motivation)
 - [How it works](#how-it-works)
 - [Contributing](#contributing)
 - [Version](#version)
@@ -23,17 +24,53 @@
   - [MacOS](#macos)
   - [Windows ](#windows-)
 - [List documents](#list-documents)
-- [TODO](#todo)
+- [Roadmap/TODO](#roadmaptodo)
 - [License](#license)
+
+
+**privategpt** is an OpenSource Machine Learning (ML) based application to
+query your local documents in natural language using local large Language
+Models (LLM). 
 
 # Introduction
 
-An on-premises ML-powered Retrieval-Augmented Generation (RAG) application. It uses [ollama](https://ollama.com) for running Large Language Models (LLM). [ollama](https://ollama.com) runs on Linux, Mac and Windows on any system with CPU or GPU and performs very well.
+It uses [ollama](https://ollama.com) for running Large Language Models (LLM).
+[ollama](https://ollama.com) runs on Linux, Mac and Windows on any system 
+with CPU or GPU and performs very well.
 
-This project is based on ollama example code at:
-https://github.com/ollama/ollama/tree/main/examples/langchain-python-rag-privategpt
+The lincense is [MIT](#license).
+
+# Background and Motivation
+
+This project emerged from a personal exploration into 
+[RAG](https://blogs.nvidia.com/blog/what-is-retrieval-augmented-generation/)
+applications using local Large Language Models (LLMs). 
+RAG is a fancy acronym for findng similar document fracments (chunks) 
+using machine learing algorithm in your local documents and send the chunks to a 
+Large Language Model (LLM) to make sense out them by summarizing the chunks.
+
+Inspired by the potential of RAG technology, but lacking time and resource 
+for training or fine-tuning an LLM, the project began as an experiment with local 
+LLMs. The most important goal was not to send propietary documents to
+cloud for searching.
+
+The project was initially based on the 
+[privateGPT](https://github.com/ollama/ollama/tree/main/examples/langchain-python-rag-privategpt)
+example from the ollama gitHub repo, which demonstrated impressive results 
+with local document querying. But the original example became outdated 
+and stopped working, this project aimed to revive and improve upon the 
+concept.
+
+Efforts were made to ensure the application works across Linux, Mac, and 
+Windows platforms, with improved documentation on RAG functionality.
+The codebase was modularized, configurations were added, and the overall 
+structure was refined to make it potentially production-ready. 
+
+I plan to keep the project simple and easy to understand. Hope you will find
+the project useful as well.
 
 Please look at [ChangeLog](ChangeLog.md).for details for what is changed.
+Please look at the [Roadmap/TODO](#roadmaptodo) section for future plans.
 
 # How it works
 
@@ -186,10 +223,10 @@ TODO
     PROJECT_ROOT = os.path.dirname(current_file_path)
     VERSION="1.0.2"
     
-    APP_TITLE = "Privat Documents Assistant"
+    APP_TITLE = "Private Documents Assistant"
     APP_DESCRIPTION = "An on-premises private documents assistant with ollama"
     PROJECT_URL = "https://github.com/muquit/privategpt"
-    SHOW_PROJECT_URL = False
+    SHOW_PROJECT_URL = True
     SHOW_SIDEBAR = True
     ASK_ME_TEXT = "Ask me anything about your documents"
     
@@ -267,13 +304,14 @@ privategpt: Ask questions to your documents without an internet connection,
 using the power of LLMs.
 
 options:
-  -h, --help         show this help message and exit
-  --hide-source, -S  Use this flag to disable printing of source documents
-                     used for answers.
-  --mute-stream, -M  Use this flag to disable the streaming StdOut callback
-                     for LLMs.
-  --model, -m MODEL  Specify the model to use. Defaults to the value set in
-                     config.py.
+  -h, --help            show this help message and exit
+  --hide-source, -S     Use this flag to disable printing of source documents
+                        used for answers.
+  --mute-stream, -M     Use this flag to disable the streaming StdOut callback
+                        for LLMs.
+  --model MODEL, -m MODEL
+                        Specify the model to use. Defaults to the value set in
+                        config.py.
 ```
 
 # Screenshot of the web ui
@@ -318,14 +356,18 @@ scripts/list_chroma_metadata_json.py
 scripts/list_chroma_metadata_pretty.py
 ```
 
-# TODO
-* Describe how things work
+# Roadmap/TODO
 * Currently all the documents in the chromadb is searched which can return wrong
 information if documents contain similar texts. Specify users to select
 documents to search and user chromadb filtering mechanism to perform the
 similarity search before sending the chunks to LLM
+
+* Support other OpenSource vector database like [qdrant](https://github.com/qdrant/qdrant)
+
 * Add readline like history to CLI
+
 * Create a docker image
+
 * Run the web ui as a service for Linux, MacOS and Windows. systemd unit file
 and script are in systemd directory, needs some modifying for your needs, like
 change user and group.

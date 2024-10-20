@@ -10,10 +10,10 @@
     PROJECT_ROOT = os.path.dirname(current_file_path)
     VERSION="1.0.2"
     
-    APP_TITLE = "Privat Documents Assistant"
+    APP_TITLE = "Private Documents Assistant"
     APP_DESCRIPTION = "An on-premises private documents assistant with ollama"
     PROJECT_URL = "https://github.com/muquit/privategpt"
-    SHOW_PROJECT_URL = False
+    SHOW_PROJECT_URL = True
     SHOW_SIDEBAR = True
     ASK_ME_TEXT = "Ask me anything about your documents"
     
