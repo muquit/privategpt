@@ -203,10 +203,19 @@ def doit():
             stream_handler = StreamHandler(response_container)
             # __call__ method is deprecated, use invoke instead.
             with st.spinner('Processing...'):
-                response = st.session_state.qa(
-                    {"query": prompt},
-                    callbacks=[stream_handler]
-                )
+                # use invoke 
+                # it is important use config with invoke otherwise
+                # streamlit will not stream
+                # Oct-20-2024 
+                response = st.session_state.qa.invoke(
+                        {"query": prompt},
+                        config={"callbacks":[stream_handler]}
+                 )
+                # old __call__ way
+#                response = st.session_state.qa(
+#                    {"query": prompt},
+#                    callbacks=[stream_handler]
+#                )
             
 #            logger.info(f"Question: {prompt}")
 #            logger.info(f"Debug - Full response: {response}")

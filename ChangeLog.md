@@ -37,4 +37,12 @@ Specify OLLAMA_URL from config.py for the client.
 
 (Oct-12-2024)
 
+* Use langchain RetrievalQA's invoke() method instead of run(), otherwise 
+a waring '__call__ method is deprecated, use invoke instead.' is shown.
+config key had to be used to invoke() otherwise streamlit's stream handler
+does not work.
+
+(Oct-20-2024)
+
+
 
