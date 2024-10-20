@@ -1,4 +1,5 @@
 # Configuration file
+Please update as needed
 
     import os
     import sys

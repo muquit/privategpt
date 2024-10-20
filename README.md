@@ -207,6 +207,7 @@ pip3 install -r requirements.txt
 ```
 
 # Configuration file
+Please update as needed
 
     import os
     import sys

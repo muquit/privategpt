@@ -12,6 +12,7 @@ update_config_md() {
     local -r f="${MDIR}/config.md"
     local -r cf="./config.py"
     echo "# Configuration file" > ${f}
+    echo "Please update as needed" >> ${f}
     echo "" >> ${f}
     while IFS= read -r line; do
         echo "    $line" >> ${f}
