@@ -19,7 +19,7 @@
   - [Make your documents available](#make-your-documents-available)
     - [Copy your PDF, text files etc to ./documents folder. ](#copy-your-pdf-text-files-etc-to-documents-folder-)
   - [Vectorize](#vectorize)
-- [Query your document](#query-your-document)
+- [Query your documents](#query-your-documents)
   - [Web UI](#web-ui)
     - [Start the web ui](#start-the-web-ui)
   - [CLI](#cli)
@@ -313,9 +313,9 @@ will be listed in the sidebar.
 
 The vector database will be created in `./db` directory as configured in `config.py`.
 
-# Query your document
+# Query your documents
 
-The document can be queried from a web ui or from command line
+The documents can be queried from a web ui or from command line
 
 
 ## Web UI
