@@ -10,7 +10,7 @@
 # v1.0.2
 
 * Could not make the code in ollama to work, so I updated the code and also
-using newer version of python modules.
+using newer versions of python modules. 
 
 * Use config file 
 
@@ -25,6 +25,9 @@ using newer version of python modules.
 * In an old Windows system without GPU, during ingestion, I've seen an error
 ValueError: Batch size 2076 exceeds maximum batch size 166. Therefore,
 dynamically adjust batch size if this kind of exception occurs.
+
+* Detection of existing chromadb code is buggy, It was creating duplicate
+entries with each ingestion.
 
 (Sep-29-2024)
 

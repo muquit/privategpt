@@ -10,6 +10,8 @@
 
 @[:markdown](version.md)
 
+@[:markdown](supported_platforms.md)
+
 @[:markdown](requirements.md)
 
 @[:markdown](installation.md)

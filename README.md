@@ -4,6 +4,7 @@
 - [How it works](#how-it-works)
 - [Contributing](#contributing)
 - [Version](#version)
+- [Supported Platforms](#supported-platforms)
 - [Requirements](#requirements)
 - [Installation](#installation)
   - [Clone the  repo](#clone-the--repo)
@@ -52,18 +53,18 @@ The lincense is [MIT](#license).
 This project emerged from a personal exploration into 
 [RAG](https://blogs.nvidia.com/blog/what-is-retrieval-augmented-generation/)
 applications using local Large Language Models (LLMs). 
-RAG is a fancy acronym for findng similar document fracments (chunks) 
-using machine learing algorithm in your local documents and send the chunks to a 
+RAG is a fancy acronym for finding similar document fragments (chunks) 
+using machine learning algorithm in your local documents and send the chunks to a 
 Large Language Model (LLM) to make sense out them by summarizing the chunks.
 
 Inspired by the potential of RAG technology, but lacking time and resource 
 for training or fine-tuning an LLM, the project began as an experiment with local 
-LLMs. The most important goal was not to send propietary documents to
+LLMs. The most important goal was not to send proprietary documents to
 cloud for searching.
 
 The project was initially based on the 
 [privateGPT](https://github.com/ollama/ollama/tree/main/examples/langchain-python-rag-privategpt)
-example from the ollama gitHub repo, which demonstrated impressive results 
+example from the ollama github repo, which demonstrated impressive results 
 with local document querying. But the original example became outdated 
 and at one point it stopped working, this project aimed to revive and 
 improve upon the concept.
@@ -102,6 +103,15 @@ course)
 The current version of the tools is 1.0.2
 
 Please look at [ChangeLog](ChangeLog.md) for what has changed in the current version.
+
+# Supported Platforms
+
+The document assistant and document ingestion code run on:
+
+* Linux
+* MacOS (Tested on Intel and M2 Macs)
+* Windows
+
 
 # Requirements
 
@@ -272,7 +282,7 @@ Please update as needed
 This project uses [chroma db](https://docs.trychroma.com/) for storing
 document embeddings/vectors.
 
-At this time I've noticed good results with PDF _text_ and reqular text documents. The instructions will be updated when I play with other document types.
+At this time I've noticed good results with PDF _text_ and regular text documents. The instructions will be updated when I play with other document types.
 
 - The project comes with a free PDF book [dracula.pdf](https://www.planetebook.com/free-ebooks/dracula.pdf) in `./documents` directory. I noticed that the extracted texts from the PDF version of dracula gives much better results than the free dracula.txt and time [Project Gutenberg](https://www.gutenberg.org/). If you want, copy some PDF files to `./documents` directory and vectorize them. If new documents are found, they will be appended to the vector database.
 
@@ -381,7 +391,7 @@ scripts/list_chroma_metadata_pretty.py
 
 # Known Issues
 
-Currently all the documents in the chromadb are searched for simillarity, 
+Currently all the documents in the chromadb are searched for similarity, 
 which can return wrong information if documents contain similar texts. 
 Please look at the returned **Source** to make sure the response is correct.
 

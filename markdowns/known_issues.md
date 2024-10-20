@@ -1,6 +1,6 @@
 # Known Issues
 
-Currently all the documents in the chromadb are searched for simillarity, 
+Currently all the documents in the chromadb are searched for similarity, 
 which can return wrong information if documents contain similar texts. 
 Please look at the returned **Source** to make sure the response is correct.
 
