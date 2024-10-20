@@ -13,6 +13,8 @@
     - [Windows](#windows)
 - [Configuration file](#configuration-file)
 - [Vectorize your documents](#vectorize-your-documents)
+  - [Make your documetns available](#make-your-documetns-available)
+  - [Vectorize](#vectorize)
 - [Query your document](#query-your-document)
   - [Web UI](#web-ui)
   - [CLI](#cli)
@@ -269,15 +271,24 @@ At this time I've noticed good results with PDF _text_ and reqular text document
 
 - The project comes with a free PDF book [dracula.pdf](https://www.planetebook.com/free-ebooks/dracula.pdf) in `./documents` directory. I noticed that the extracted texts from the PDF version of dracula gives much better results than the free dracula.txt and time [Project Gutenberg](https://www.gutenberg.org/). If you want, copy some PDF files to `./documents` directory and vectorize them. If new documents are found, they will be appended to the vector database.
 
+## Make your documetns available
+
+Copy PDF, text files etc to ./documents folder. 
+
 ```
 copy file.pdf ./documents
 ```
 
-- Vectorize
+## Vectorize
 
 ```
-python3 ./ingest/ingest.py or ./ingest.sh
+python3 ./ingest/ingest.py
 ```
+
+Please vectorize again when new documents are added. After that, make sure to
+restart the web ui. At this time, please look [List documents](#list-documents) 
+section to list what documents are in the chromadb. In future, the documents
+will be listed in the sidebar.
 
 The vector database will be created in `./db` directory as configured in `config.py`.
 
