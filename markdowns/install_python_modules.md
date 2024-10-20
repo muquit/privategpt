@@ -40,7 +40,7 @@ pvenv\Scripts\activate
 pvenv\Scripts\deactivate
 ```
 
-### Install Python Modules
+### Install the Python Modules
 
 - Install python modules. The following modulles and their dependencies will be installed in the virtual environment.
 

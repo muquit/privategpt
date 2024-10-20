@@ -13,7 +13,7 @@
     - [Create Python Virtual Environment](#create-python-virtual-environment)
     - [Linux/MacOS](#linuxmacos)
     - [Windows](#windows)
-    - [Install Python Modules](#install-python-modules-1)
+    - [Install the Python Modules](#install-the-python-modules)
 - [Configuration file](#configuration-file)
 - [Vectorize your documents](#vectorize-your-documents)
   - [Make your documents available](#make-your-documents-available)
@@ -206,7 +206,7 @@ pvenv\Scripts\activate
 pvenv\Scripts\deactivate
 ```
 
-### Install Python Modules
+### Install the Python Modules
 
 - Install python modules. The following modulles and their dependencies will be installed in the virtual environment.
 
