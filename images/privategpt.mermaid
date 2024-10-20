@@ -1,0 +1,13 @@
+graph TD
+    A[Documents] -->|Vectorization| B(ingest.py)
+    B -->|Store Vectors| C[(ChromaDB)]
+    D[User Query] -->|Via UI| E(assistant_ui.py)
+    D -->|Via CLI| F(assistant_cli.py)
+    E -->|Retrieve Relevant Docs| C
+    F -->|Retrieve Relevant Docs| C
+    E -->|Generate Response| G(Ollama LLM)
+    F -->|Generate Response| G
+    G -->|Return Answer| E
+    G -->|Return Answer| F
+    E -->|Display Result| H[Streamlit Web App]
+    F -->|Display Result| I[Command Line Interface]
