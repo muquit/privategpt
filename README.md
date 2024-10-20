@@ -399,7 +399,8 @@ from [llama3 8b](https://ollama.com/library/llama3) model without GPU:
 # Run web ui as a service
 ## Linux Systemd
 
-Please look at `systemd/` directory. It needs some cleaning up but it works
+Please look at `systemd/` directory. It needs some cleaning up but it works. An installation script
+will be provided in future.
 
 ## Linux sysv
 
