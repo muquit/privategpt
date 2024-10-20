@@ -12,11 +12,17 @@
 
 @[:markdown](requirements.md)
 
+@[:markdown](installation.md)
+
+@[:markdown](clone.md)
+
+@[:markdown](install_ollama.md)
+
 @[:markdown](install_python_modules.md)
 
-@[:markdown](downloads.md)
-
 @[:markdown](config.md)
+
+@[:markdown](vectorize.md)
 
 @[:markdown](query_docs.md)
 

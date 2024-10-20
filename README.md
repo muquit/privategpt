@@ -5,15 +5,14 @@
 - [Contributing](#contributing)
 - [Version](#version)
 - [Requirements](#requirements)
-- [How to use](#how-to-use)
+- [Installation](#installation)
+  - [Clone the  repo](#clone-the--repo)
   - [Install ollama](#install-ollama)
   - [Install python modules](#install-python-modules)
     - [Linux/MacOS](#linuxmacos)
     - [Windows](#windows)
-- [Download](#download)
-  - [Clone the repository](#clone-the-repository)
-  - [Download source from releases](#download-source-from-releases)
 - [Configuration file](#configuration-file)
+- [Vectorize your documents](#vectorize-your-documents)
 - [Query your document](#query-your-document)
   - [Web UI](#web-ui)
   - [CLI](#cli)
@@ -101,7 +100,13 @@ Please look at [ChangeLog](ChangeLog.md) for what has changed in the current ver
 - [ollama](https://ollama.com)
 - python3
 
-# How to use
+
+# Installation
+
+## Clone the  repo
+
+    git clone https://github.com/muquit/privategpt.git
+    cd privategpt
 
 ## Install ollama
 
@@ -112,7 +117,10 @@ Please look at [ChangeLog](ChangeLog.md) for what has changed in the current ver
 Ollama is running
 ```
 
-- Then install 2 Large Language Models (LLMS), I use mistral and llama3. Here is how to install and query models. You can run any model from ollama page. It is also possible to convert any GGUF models from huggingface to ollama modes and use them. I will add instructions on how to do that ...
+- Then install 2 Large Language Models (LLMS), I use mistral and llama3. 
+Here is how to install and query models. You can run any model from ollama 
+page. It is also possible to convert any GGUF models from huggingface to 
+ollama modes and use them. I will add instructions on how to do that ...
 
 ```
 ollama pull mistral
@@ -126,14 +134,15 @@ In my system:
 
 ```
 $ ollama list
-NAME                   	ID          	SIZE  	MODIFIED
-qwen2:7b               	dd314f039b9d	4.4 GB	2 days ago
-nomic-embed-text:latest	0a109f422b47	274 MB	4 weeks ago
-llama3:latest          	365c0bd3c000	4.7 GB	8 weeks ago
-mistral:latest         	f974a74358d6	4.1 GB	8 weeks ago
+NAME                    ID              SIZE    MODIFIED
+qwen2:7b                dd314f039b9d    4.4 GB  2 days ago
+nomic-embed-text:latest 0a109f422b47    274 MB  4 weeks ago
+llama3:latest           365c0bd3c000    4.7 GB  8 weeks ago
+mistral:latest          f974a74358d6    4.1 GB  8 weeks ago
 ```
 
-The models will be displayed in the select list in the sidebar. To ignore any model, add it in the list in `config.py` with `EXCLUDE_MODELS`
+The models will be displayed in the select list in the sidebar. To ignore 
+any model, add it in the list in `config.py` with `EXCLUDE_MODELS`
 
 ## Install python modules
 
@@ -196,21 +205,6 @@ To install the modules:
 pip3 install -r requirements.txt
 ```
 
-# Download
-
-## Clone the repository
-
-```
-    git clone github.com/muquit/privategpt
-    cd privategtp
-```
-
-Then follow the instructions on how to install python modules and run assistant web ui or cli
-
-## Download source from releases
-
-TODO
-
 # Configuration file
 
     import os
@@ -263,6 +257,27 @@ TODO
     #EXCLUDE_MODELS = []
     EXCLUDE_MODELS = ["nomic-embed-text:latest", "qwen2:7b"]
     
+
+# Vectorize your documents
+
+This project uses [chroma db](https://docs.trychroma.com/) for storing
+document embeddings/vectors.
+
+At this time I've noticed good results with PDF _text_ and reqular text documents. The instructions will be updated when I play with other document types.
+
+- The project comes with a free PDF book [dracula.pdf](https://www.planetebook.com/free-ebooks/dracula.pdf) in `./documents` directory. I noticed that the extracted texts from the PDF version of dracula gives much better results than the free dracula.txt and time [Project Gutenberg](https://www.gutenberg.org/). If you want, copy some PDF files to `./documents` directory and vectorize them. If new documents are found, they will be appended to the vector database.
+
+```
+copy file.pdf ./documents
+```
+
+- Vectorize
+
+```
+python3 ./ingest/ingest.py or ./ingest.sh
+```
+
+The vector database will be created in `./db` directory as configured in `config.py`.
 
 # Query your document
 
