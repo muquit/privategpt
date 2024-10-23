@@ -1,7 +1,9 @@
-
-**privategpt** is an OpenSource Machine Learning (ML) based application to
-query your local documents in natural language using local large Language
-Models (LLM). It has a web ui and a cli for querying documents. 
+**privategpt** is an OpenSource Machine Learning (ML) application that 
+lets you query your local documents using natural language with Large 
+Language Models (LLM) running through [ollama](https://ollama.com) locally 
+or over network. Everything runs on your local machine or network so your 
+documents stay private. It has both web and command-line interfaces that 
+you can use to ask questions about your documents.
 
 The project is under heavy development, please try it out give us your 
 feedback. Thanks.
