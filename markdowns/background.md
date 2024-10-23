@@ -18,7 +18,8 @@ documents. But the original example became outdated and at one point it
 stopped working. I decided to fix it and make it better.
 
 I wanted to run the app  on Linux, Mac, and Windows platforms, with 
-improved documentation on RAG functionality.  I also cleaned up the, added 
+improved documentation on RAG functionality.  I added a web interface as 
+the original code only had CLI.  I also cleaned up the code, added 
 configs, logging etc. and tried to make it more organized so it could be 
 used in production.
 
