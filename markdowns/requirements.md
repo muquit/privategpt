@@ -9,4 +9,4 @@ Please look at [https://www.python.org/](https://www.python.org/) for informatio
 If the system where [ollama](https://ollama.com) will be running has a GPU, queries and 
 responses will be fast. Without a GPU, it will still work but will be 
 slower. You can run [ollama](https://ollama.com) on another system with a GPU or even in the 
-cloud with a GPU by specifying the URL in config.py.
+cloud with a GPU by specifying the URL in [config.py](#configuration-file).
