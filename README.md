@@ -116,8 +116,11 @@ The document assistant and document ingestion code run on:
 
 # Requirements
 
-- [ollama](https://ollama.com)
+- [ollama](https://ollama.com) - you have to install, read below.
 - python3
+
+Check if python3 is installed by typing `python3 --version`. If not, your have to install it.
+Please look at [https://www.python.org/](https://www.python.org/) for information.
 
 
 # Installation
