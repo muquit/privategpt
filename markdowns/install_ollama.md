@@ -32,7 +32,7 @@ llama3:latest           365c0bd3c000    4.7 GB  8 weeks ago
 mistral:latest          f974a74358d6    4.1 GB  8 weeks ago
 ```
 
-The models will be displayed in the select list in the sidebar. To ignore 
+The models will be displayed in the select list in the sidebar of the web ui. To ignore 
 any model, add it in the list in `config.py` with `EXCLUDE_MODELS`
 
 [ollama](https://ollama.com) will use GPU if your system has it. To check do this:
