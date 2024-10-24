@@ -5,7 +5,7 @@
 - [Contributing](#contributing)
 - [Version](#version)
 - [Supported Platforms](#supported-platforms)
-- [Requirements](#requirements)
+- [Requirements (ollama and python3)](#requirements-ollama-and-python3)
 - [Installation](#installation)
   - [Clone the  repo](#clone-the--repo)
   - [Install ollama](#install-ollama)
@@ -114,12 +114,12 @@ The document assistant and document ingestion code run on:
 * Windows
 
 
-# Requirements
+# Requirements (ollama and python3)
 
 - [ollama](https://ollama.com) - you have to install, read below.
 - python3
 
-Check if python3 is installed by typing `python3 --version`. If not, your have to install it.
+Check if python3 is installed by typing `python3 --version`. If not, you have to install it.
 Please look at [https://www.python.org/](https://www.python.org/) for information.
 
 
