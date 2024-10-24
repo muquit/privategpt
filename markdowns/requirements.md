@@ -1,4 +1,4 @@
-# Requirements
+# Requirements (ollama and python3)
 
 - [ollama](https://ollama.com) - you have to install, read below.
 - python3
