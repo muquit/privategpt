@@ -9,7 +9,9 @@
 - ❌ It may work but not tested with Python versions below 3.12
 
 If you use [homebrew](https://brew.sh/) and if it installed python 3.13, do
-the following (this is the procedure on a Mac M2):
+the following (this is the procedure on a Mac M2). Please note, this is my
+suggestion, you decide if you want to do it or not. If you need Python 3.13,
+you might not want to do that.
 
 - Check if python3.13 is installed
 ```
