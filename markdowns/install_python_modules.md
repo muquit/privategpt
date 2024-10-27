@@ -132,12 +132,31 @@ error:
 
 Install python 3.12 as described above.
 
-In my envrionment, the versions I use are shown below:
+The versions I used are shown below:
+
+It's a Mac M2.
 
 ```
 ➤ python3 -V
 Python 3.12.5
 
+➤ ./scripts/check_versions.py
+tqdm==4.66.5
+ollama==0.3.3
+langchain_community==0.3.3
+langchain_huggingface==0.1.0
+langchain-chroma==0.1.4
+chromadb==0.5.15
+sentence_transformers==3.2.1
+pymupdf==1.24.12
+streamlit==1.39.0
+```
+
+On an Intel Mac running Sonoma 14.6.1
+
+```
+➤ python3 -V
+Python 3.12.7
 ➤ ./scripts/check_versions.py
 tqdm==4.66.5
 ollama==0.3.3
