@@ -14,7 +14,10 @@ I wrote the web ui using streamlit
 
 
 import os
+os.environ['PYTHONWARNINGS'] = 'ignore::UserWarning:torch.classes'
 import sys
+import warnings
+from typing import Any, Dict
 
 import streamlit as st
 import ollama
@@ -35,7 +38,6 @@ from langchain_chroma import Chroma
 from langchain_community.llms import Ollama
 
 # Suppress warnings
-import warnings
 from transformers import logging
 warnings.filterwarnings("ignore", category=FutureWarning, message=".*`clean_up_tokenization_spaces`.*")
 logging.set_verbosity_error()
@@ -104,6 +106,9 @@ def doit():
         def on_llm_new_token(self, token: str, **kwargs) -> None:
             self.text += token
             self.container.markdown(self.text)
+            
+        def on_chain_start( self, serialized: Dict[str, Any], inputs: Dict[str, Any], **kwargs: Any) -> None:
+            logger.info(f"chain started")
 
     # load configuration. look at config.py at the base of the project
 
