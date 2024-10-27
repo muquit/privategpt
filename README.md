@@ -134,7 +134,8 @@ cloud with a GPU by specifying the URL in [config.py](#configuration-file).
 
 ## Install ollama
 
-- First of all you have to install [ollama](https://ollama.com) on your system.
+- First of all you have to install [ollama](https://ollama.com) on your system. Please follow 
+the instructions at https://ollama.com
 - To check if ollama is running, point your browser to `http://127.0.0.1:11434`. You should see:
 
 ```
