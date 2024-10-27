@@ -10,9 +10,9 @@ Please look at [https://www.python.org/](https://www.python.org/) for informatio
 
 - Required: python 3.12.x (Currently tested with python 3.12.x)
 
-- ⚠️ Not yet compatible with Python 3.13 
+- ⚠️  Not yet compatible with Python 3.13 
 
-- ❌ Not tested with Python versions below 3.12
+- ❌ It may work but not tested with Python versions below 3.12
 
 
 If the system where [ollama](https://ollama.com) will be running has a GPU, queries and 
