@@ -4,6 +4,10 @@ information if documents contain similar texts. Allow to select
 one or more documents to search and use chromadb's filtering mechanism to perform the
 similarity search before sending the chunks to LLM.
 
+* Suport [vLLM](https://github.com/vllm-project/vllm?tab=readme-ov-file)
+
+* Add an option to use custom system prompt template.
+
 * Support other OpenSource vector database like [qdrant](https://github.com/qdrant/qdrant)
 
 * Add readline like history to CLI
@@ -15,3 +19,5 @@ and script are in systemd directory, needs some modifying for your needs, like
 change user and group.
 * 
 * etc...
+
+You're welcome to contrinute to any of these.
