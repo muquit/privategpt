@@ -20,4 +20,4 @@ change user and group.
 * 
 * etc...
 
-You're welcome to contrinute to any of these.
+You're welcome to contribute to any of these.
