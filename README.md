@@ -157,9 +157,10 @@ Ollama is running
 
 - Then install say 2 Large Language Models (LLMS), I use mistral and llama3. 
 You can install as many as you like provided your system has plenty of memory.
-Here is how to install and query models. You can run any model from ollama 
-page. It is also possible to convert any GGUF models from huggingface to 
-ollama modes and use them. I will add instructions on how to do that ...
+Here is how to install and query models. You can run any model from 
+(ollama models)[https://ollama.com/library] page. It is also possible to 
+convert any GGUF models from huggingface to ollama models and use them. I 
+will add instructions on how to do that ...
 
 ```
 ollama pull mistral
