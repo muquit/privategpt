@@ -256,7 +256,7 @@ or
  which pip3
 ```
 
-- If the version env is created with python 3.13, remove the directory.
+- If the virtual env is created with python 3.13, remove the directory and start again.
 
 ### Create Python Virtual Environment
 
