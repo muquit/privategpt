@@ -346,7 +346,7 @@ Install python 3.12 as described above.
 
 The versions I used are shown below:
 
-It's a Mac M2.
+On a Mac M2
 
 ```
 ➤ python3 -V
