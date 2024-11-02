@@ -683,7 +683,7 @@ Please provide a helpful answer in German:"""
 ```
 
 #### Vietnamese Response
-Bug #1
+See #1
 ```python
 CUSTOM_PROMPT = """Sử dụng các thông tin ngữ cảnh sau đây để trả lời câu hỏi.
 QUAN TRỌNG: Chỉ trả lời bằng tiếng Việt.
