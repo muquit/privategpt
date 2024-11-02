@@ -12,8 +12,8 @@
 """
 The document retrieval code is based on:
 https://github.com/ollama/ollama/tree/main/examples/langchain-python-rag-privategpt
-But his code have config file, progress bar etc and uses newer versions of python
-modules.
+But this code have config file, progress bar etc and uses newer versions 
+of python modules.
 """
 
 from braille_spinner import BrailleSpinner
