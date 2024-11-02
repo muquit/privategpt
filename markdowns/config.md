@@ -9,7 +9,7 @@ Please update as needed
     
     current_file_path = os.path.abspath(__file__)
     PROJECT_ROOT = os.path.dirname(current_file_path)
-    VERSION="1.0.2"
+    VERSION="1.0.3"
     
     APP_TITLE = "Private Documents Assistant"
     APP_DESCRIPTION = "An on-premises private documents assistant with ollama"
@@ -17,6 +17,22 @@ Please update as needed
     SHOW_PROJECT_URL = True
     SHOW_SIDEBAR = True
     ASK_ME_TEXT = "Ask me anything about your documents"
+    
+    # Custom system prompt. Please look at Custom Prompts section
+    # in README.md for examples
+    # added in v1.0.3
+    CUSTOM_PROMPT = """
+    Given the following context, answer the question using only the provided 
+    information. If the answer isn't found in the context, respond with
+    'I cannot answer this based on the provided context.'
+    
+    Context:
+    {context}
+    
+    Question: {question}
+    
+    Answer: Let me analyze the context and provide a detailed response.
+    """
     
     # Change if ollama is running on a different system on 
     # your network or somewhere in the cloud. Please look

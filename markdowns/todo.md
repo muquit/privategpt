@@ -6,7 +6,7 @@ similarity search before sending the chunks to LLM.
 
 * Suport [vLLM](https://github.com/vllm-project/vllm?tab=readme-ov-file)
 
-* Add an option to use custom system prompt template.
+* Add an option to use custom system prompt template ✅ (v1.0.3 - Nov-02-2024)
 
 * Support other OpenSource vector database like [qdrant](https://github.com/qdrant/qdrant)
 

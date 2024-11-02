@@ -38,7 +38,8 @@ def load_config():
         SHOW_SIDEBAR,
         DEFAULT_MODEL,
         EXCLUDE_MODELS,
-        ASK_ME_TEXT
+        ASK_ME_TEXT,
+        CUSTOM_PROMPT
     )
 
     # return configuration as a SimpleNamespace object
@@ -61,7 +62,8 @@ def load_config():
         SHOW_SIDEBAR=SHOW_SIDEBAR,
         DEFAULT_MODEL=DEFAULT_MODEL,
         EXCLUDE_MODELS=EXCLUDE_MODELS,
-        ASK_ME_TEXT=ASK_ME_TEXT
+        ASK_ME_TEXT=ASK_ME_TEXT,
+        CUSTOM_PROMPT=CUSTOM_PROMPT
     )
 
 #====================================================================

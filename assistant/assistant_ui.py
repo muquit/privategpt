@@ -24,6 +24,7 @@ import ollama
 from ollama import Client
 from streamlit.runtime.scriptrunner import get_script_run_ctx
 
+from langchain.prompts import PromptTemplate
 from langchain.chains import RetrievalQA
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain.callbacks.base import BaseCallbackHandler
@@ -35,7 +36,9 @@ os.environ["ANONYMIZED_TELEMETRY"] = "false"
 
 from langchain_chroma import Chroma
 
-from langchain_community.llms import Ollama
+#from langchain_community.llms import Ollama
+# updated: Nov-02-2024 
+from langchain_ollama import OllamaLLM
 
 # Suppress warnings
 from transformers import logging
@@ -88,7 +91,7 @@ def doit():
 
         st.markdown(f"""
         <div class="centered">
-            <h2>{APP_TITLE}</h2>
+            <h2>{APP_TITLE} v{conf.VERSION}</h2>
             <p style='font-size: 0.9em; font-weight: bold;'>
             {conf.APP_DESCRIPTION}{url_line}
             </p>
@@ -144,6 +147,7 @@ def doit():
     def get_embeddings(model_name):
         return HuggingFaceEmbeddings(model_name=model_name)
 
+    
     # initialize embeddings and database
     @st.cache_resource(show_spinner=False)
     def initialize_qa(model, embeddings_model_name, hide_source):
@@ -161,14 +165,30 @@ def doit():
         retriever = db.as_retriever(search_kwargs={"k": conf.TARGET_SOURCE_CHUNKS})
         logger.debug(f"Retriever: {retriever}")
         logger.debug(f"Number of documents in Chroma: {retriever.vectorstore._collection.count()}")
-        llm = Ollama(model=model, base_url=conf.OLLAMA_URL)
-        qa = RetrievalQA.from_chain_type(
-            llm=llm, 
-            chain_type="stuff", 
-            retriever=retriever, 
-            return_source_documents=True,
-            verbose=False
-        )
+        llm = OllamaLLM(model=model, base_url=conf.OLLAMA_URL)
+
+        # if custom prompt specified use it.
+        if hasattr(conf, 'CUSTOM_PROMPT'):
+            custom_prompt = PromptTemplate(
+                template=conf.CUSTOM_PROMPT,
+                input_variables=["context", "question"]
+            )
+            qa = RetrievalQA.from_chain_type(
+                llm=llm,
+                chain_type="stuff",
+                retriever=retriever,
+                return_source_documents=True,
+                verbose=False,
+                chain_type_kwargs={"prompt": custom_prompt}
+            )
+        else:
+            qa = RetrievalQA.from_chain_type(
+                llm=llm, 
+                chain_type="stuff", 
+                retriever=retriever, 
+                return_source_documents=True,
+                verbose=False
+            )
         logger.debug(f"QA chain return_source_documents: {qa.return_source_documents}")
         return qa
 
@@ -258,7 +278,7 @@ def doit():
 
             if not hide_source:
                 if source_documents:
-                    st.write("Sources:")
+                    st.markdown("**Sources:**")
                     for idx, doc in enumerate(source_documents):
                         with st.expander(f"Source {idx + 1}"):
                             meta_data = doc.metadata
@@ -266,13 +286,10 @@ def doit():
                             source = meta_data.get('source', 'N/A')
                             page = meta_data.get('page', 'N/A')
                             filename = os.path.basename(source)
-#                            styled = f'<span style="color:purple">{filename}</span>'
-                            styled = f'<span style="font-weight:bold">{filename}</span>'
-#                            styled=f'<span font-style: italic; font-weight: bold</span>';
-                            st.write(f"From: {styled}", unsafe_allow_html=True)
+                            st.write(f"From: **{filename}**", unsafe_allow_html=True)
                             # write the source content
                             st.write(doc.page_content)
-                            st.write(f"Page: {page}")
+                            st.write(f"**Page**: {page}")
                     logger.info(f"Debug - Displayed {len(source_documents)} source documents")
                 else:
                     st.write("No source documents found for this query.")

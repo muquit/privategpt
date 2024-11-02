@@ -27,6 +27,22 @@
   - [Web UI](#web-ui)
     - [Start the web ui](#start-the-web-ui)
   - [CLI](#cli)
+- [Custom Prompts](#custom-prompts)
+  - [Basic Usage](#basic-usage)
+  - [Example Prompt Templates](#example-prompt-templates)
+    - [Default Simple Prompt](#default-simple-prompt)
+    - [Language-Specific Prompts](#language-specific-prompts)
+      - [German Response](#german-response)
+      - [Vietnamese Response](#vietnamese-response)
+      - [Bangla Response](#bangla-response)
+    - [Technical Documentation Prompts](#technical-documentation-prompts)
+      - [API Documentation](#api-documentation)
+      - [Troubleshooting Guide](#troubleshooting-guide)
+      - [Code Examples](#code-examples)
+  - [Note](#note)
+    - [Language Support](#language-support)
+    - [Customizing Prompts](#customizing-prompts)
+    - [Testing Your Prompts](#testing-your-prompts)
 - [Screenshot of the web ui](#screenshot-of-the-web-ui)
 - [Run web ui as a service](#run-web-ui-as-a-service)
   - [Linux Systemd](#linux-systemd)
@@ -103,9 +119,10 @@ generate the README.md.
 
 # Version
 
-The current version of the tools is 1.0.2
+The current version of the tools is 1.0.3.
 
-Please look at [ChangeLog](ChangeLog.md) for what has changed in the current version.
+Please look at [ChangeLog](ChangeLog.md) for what has changed in the
+current version.  It is possible, new python modules need to be installed.
 
 # Supported Platforms
 
@@ -458,7 +475,7 @@ Please update as needed
     
     current_file_path = os.path.abspath(__file__)
     PROJECT_ROOT = os.path.dirname(current_file_path)
-    VERSION="1.0.2"
+    VERSION="1.0.3"
     
     APP_TITLE = "Private Documents Assistant"
     APP_DESCRIPTION = "An on-premises private documents assistant with ollama"
@@ -466,6 +483,22 @@ Please update as needed
     SHOW_PROJECT_URL = True
     SHOW_SIDEBAR = True
     ASK_ME_TEXT = "Ask me anything about your documents"
+    
+    # Custom system prompt. Please look at Custom Prompts section
+    # in README.md for examples
+    # added in v1.0.3
+    CUSTOM_PROMPT = """
+    Given the following context, answer the question using only the provided 
+    information. If the answer isn't found in the context, respond with
+    'I cannot answer this based on the provided context.'
+    
+    Context:
+    {context}
+    
+    Question: {question}
+    
+    Answer: Let me analyze the context and provide a detailed response.
+    """
     
     # Change if ollama is running on a different system on 
     # your network or somewhere in the cloud. Please look
@@ -531,6 +564,11 @@ will be listed in the sidebar.
 
 The vector database will be created in `./db` directory as configured in `config.py`.
 
+If you already ingested your documents and got the newer version of
+**privategpt** and if you see deprecation warning about
+[chroma db](https://docs.trychroma.com/), please remove the `./db` directory
+and re-ingest your documents.
+
 # Query your documents
 
 The documents can be queried from a web ui or from command line
@@ -575,6 +613,177 @@ options:
                         Specify the model to use. Defaults to the value set in
                         config.py.
 ```
+
+# Custom Prompts
+
+Custom prompts are powerful tools that shape how Large Language Models (LLMs)
+respond to questions. Think of prompts as instructions to the AI - they 
+control the style, format, language, and depth of the answers. For example,
+you can make the AI explain things like a teacher, write code like a 
+developer, or troubleshoot like a system administrator.
+
+This section provides different prompt examples that you can use with 
+**privategpt**.  Whether you need responses in specific languages, 
+technical documentation, code examples, or structured analysis, these 
+prompts will help you get the exact type of response you want from your 
+LLM.
+
+
+## Basic Usage
+
+The prompts help control how the LLM responds to questions. You can 
+customize aspects like:
+- Response language (English, German, Vietnamese, Bangla etc.)
+- Response structure (free-form, bullet points, sections)
+- Technical detail level
+- Special instructions (like code examples, troubleshooting steps)
+
+Make sure your LLM supports the target language before using language-specific
+prompts. The quality of translations might vary depending on the model 
+used. Please look at [Ollama Model Libary](https://ollama.com/library)
+for finding better multilingual models.
+
+Please define your custom prompt with variable **CUSTOM_PROMPT** in
+[Configuration file](#configuration-file)
+
+## Example Prompt Templates
+
+### Default Simple Prompt
+
+This is the basic prompt template that works for most cases:
+```python
+CUSTOM_PROMT = """
+Given the following context, answer the question using only the provided
+information. If the answer isn't found in the context, respond with
+'I cannot answer this based on the provided context.'
+
+Context:
+{context}
+
+Question: {question}
+
+Answer: Let me analyze the context and provide a detailed response.
+"""
+```
+
+### Language-Specific Prompts
+These prompts tell the LLM to respond in specific languages.
+
+#### German Response
+```python
+CUSTOM_PROMPT = """Use the following pieces of context to answer the question.
+IMPORTANT: Provide your answer in German language only.
+
+Context:
+{context}
+
+Question: {question}
+
+Please provide a helpful answer in German:"""
+```
+
+#### Vietnamese Response
+```python
+CUSTOM_PROMPT = """Sử dụng các thông tin ngữ cảnh sau đây để trả lời câu hỏi.
+QUAN TRỌNG: Chỉ trả lời bằng tiếng Việt.
+
+Ngữ cảnh:
+{context}
+
+Câu hỏi: {question}
+
+Vui lòng cung cấp câu trả lời hữu ích bằng tiếng Việt:"""
+```
+
+#### Bangla Response
+Using native Bengali script for better accessibility:
+```python
+CUSTOM_PROMPT = """এই তথ্যগুলো দেখে প্রশ্নের উত্তর দাও।
+জরুরি কথা: শুধু বাংলায় উত্তর দিতে হবে।
+
+তথ্য:
+{context}
+
+প্রশ্ন: {question}
+
+দয়া করে বাংলায় উত্তর দাও:"""
+```
+
+### Technical Documentation Prompts
+
+#### API Documentation
+Useful for explaining APIs and their usage:
+```python
+CUSTOM_PROMPT = """Using the provided context, explain the API usage.
+Include examples of common use cases and parameter descriptions.
+
+Context:
+{context}
+
+Question: {question}
+
+API Documentation:
+1. Overview:
+2. Parameters:
+3. Usage Examples:
+4. Common Patterns:
+5. Notes:"""
+```
+
+#### Troubleshooting Guide
+Helps in diagnosing and solving issues:
+```python
+CUSTOM_PROMPT = """Using the context provided, help diagnose or solve the issue.
+If the exact solution isn't in the context, suggest the most relevant troubleshooting steps.
+
+Context:
+{context}
+
+Question: {question}
+
+Analysis and Solution:
+1. Problem identification:
+2. Relevant context:
+3. Solution/Workaround:
+4. Prevention tips (if applicable):"""
+```
+
+#### Code Examples
+Focuses on code explanation with comments:
+```python
+CUSTOM_PROMPT = """Based on the context, provide an explanation with emphasis on code examples.
+Format any code snippets clearly and include comments for better understanding.
+
+Context:
+{context}
+
+Question: {question}
+
+Explanation and Code Examples:"""
+```
+
+The prompt examples are generated by Claude AI.
+
+## Note
+
+### Language Support
+Make sure your LLM supports the target language before using language-specific prompts.
+The quality of translations might vary depending on the model used.
+
+### Customizing Prompts
+Feel free to mix elements from different prompts to create your own.
+Some key points to consider:
+- Keep instructions clear and specific
+- Include any formatting preferences
+- Specify the desired language if needed
+- Add structure hints if you want organized responses
+
+### Testing Your Prompts
+Always test new prompts with various types of:
+- Questions (simple, complex, technical)
+- Contexts (short, long, mixed languages)
+- Response requirements (code, explanations, troubleshooting)
+
 
 # Screenshot of the web ui
 
@@ -638,7 +847,7 @@ similarity search before sending the chunks to LLM.
 
 * Suport [vLLM](https://github.com/vllm-project/vllm?tab=readme-ov-file)
 
-* Add an option to use custom system prompt template.
+* Add an option to use custom system prompt template ✅ (v1.0.3 - Nov-02-2024)
 
 * Support other OpenSource vector database like [qdrant](https://github.com/qdrant/qdrant)
 

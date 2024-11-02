@@ -1,9 +1,45 @@
 ## Contents
 <!-- TOC -->
 
+- [v1.0.3](#v103)
 - [v1.0.2](#v102)
 
 <!-- /TOC -->
+
+# v1.0.3
+
+* Due to LangChain's package restructuring, Ollama integration is updated. 
+`langchain-ollama` is added in `requirements.txt`.
+Please follow these steps to update:
+
+```
+    pip3 install -r requirements.txt
+```
+
+Or specifically install langchain-ollama:
+
+```
+    pip3 install langchain-ollama
+```
+If you're extending or modifying the code, note that imports from:
+
+```
+from langchain_community.llms import Ollama
+```
+is changed to:
+
+```
+from langchain_ollama import OllamaLLM
+```
+
+Also Ollama() call is changed to OllamaLLM()
+
+(Nov-02-2024)
+
+* Custom prompt template can be spcified in [Configuration file](README.md#configuration-file). Please look 
+at [Custom Prompts](README.md#custom-prompts) for various examples.
+
+(Nov-02-2024)
 
 # v1.0.2
 

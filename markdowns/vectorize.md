@@ -27,3 +27,8 @@ section to list what documents are in the chromadb. In future, the documents
 will be listed in the sidebar.
 
 The vector database will be created in `./db` directory as configured in `config.py`.
+
+If you already ingested your documents and got the newer version of
+**privategpt** and if you see deprecation warning about
+[chroma db](https://docs.trychroma.com/), please remove the `./db` directory
+and re-ingest your documents.

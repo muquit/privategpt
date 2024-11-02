@@ -32,6 +32,8 @@
 
 @[:markdown](cli_synopsis.md)
 
+@[:markdown](custom_prompts.md)
+
 @[:markdown](screenshots.md)
 
 @[:markdown](service.md)

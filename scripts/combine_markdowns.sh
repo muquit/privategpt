@@ -19,6 +19,19 @@ update_config_md() {
     done < "${cf}"
 }
 
+update_version_md() {
+    local -r VERSION=$(grep "VERSION=" config.py | cut -d'"' -f2)
+    local -r f=${MDIR}/version.md
+    cat << EOF > ${f}
+# Version
+
+The current version of the tools is ${VERSION}.
+
+Please look at [ChangeLog](ChangeLog.md) for what has changed in the
+current version.  It is possible, new python modules need to be installed.
+EOF
+}
+
 update_license() {
     local -r f="${MDIR}/license.md"
     local -r lf="LICENSE.txt"
@@ -43,6 +56,7 @@ create_cli_synopsis()
 update_config_md
 update_license
 create_cli_synopsis
+update_version_md
 
 pushd ${MDIR} >/dev/null 
 echo " - Assembling README.md"

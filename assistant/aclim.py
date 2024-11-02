@@ -31,6 +31,7 @@ from transformers import logging
 warnings.filterwarnings("ignore", category=FutureWarning, message=".*`clean_up_tokenization_spaces`.*")
 logging.set_verbosity_error()
 
+from langchain.prompts import PromptTemplate
 from langchain.chains import RetrievalQA
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
@@ -43,7 +44,8 @@ os.environ["ANONYMIZED_TELEMETRY"] = "false"
 from langchain_chroma import Chroma
 import ollama
 from ollama import Client
-from langchain_community.llms import Ollama
+#from langchain_community.llms import Ollama
+from langchain_ollama import OllamaLLM
 import chromadb
 import argparse
 import time
@@ -212,10 +214,24 @@ def doit(args):
     stream_handler = NonInterferingStreamHandler()
     callbacks = [] if args.mute_stream else [stream_handler]
 
-#    llm = Ollama(model=model, callbacks=callbacks)
-    llm = Ollama(model=model, base_url=conf.OLLAMA_URL, callbacks=callbacks)
+    llm = OllamaLLM(model=model, base_url=conf.OLLAMA_URL, callbacks=callbacks)
 
-    qa = RetrievalQA.from_chain_type(llm=llm,
+    # if custom prompt specified use it.
+    if hasattr(conf, 'CUSTOM_PROMPT'):
+        custom_prompt = PromptTemplate(
+            template=conf.CUSTOM_PROMPT,
+            input_variables=["context", "question"]
+        )
+        qa = RetrievalQA.from_chain_type(
+            llm=llm,
+            chain_type="stuff",
+            retriever=retriever,
+            return_source_documents=not args.hide_source,
+            verbose=False,
+            chain_type_kwargs={"prompt": custom_prompt}
+        )
+    else:
+        qa = RetrievalQA.from_chain_type(llm=llm,
                                      chain_type="stuff",
                                      retriever=retriever,
                                      return_source_documents= not args.hide_source,
