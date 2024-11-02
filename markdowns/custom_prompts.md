@@ -67,7 +67,9 @@ Please provide a helpful answer in German:"""
 ```
 
 #### Vietnamese Response
-See #1
+
+[Bug #1](https://github.com/muquit/privategpt/issues/1)
+
 ```python
 CUSTOM_PROMPT = """Sử dụng các thông tin ngữ cảnh sau đây để trả lời câu hỏi.
 QUAN TRỌNG: Chỉ trả lời bằng tiếng Việt.
