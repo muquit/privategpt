@@ -62,11 +62,23 @@ from utils.logging import setup_logging
 def get_ollama_client(url):
     return Client(host=url)
 
+
 def doit():
     conf = load_config()
     logger = setup_logging(conf.LOG_FILE_CHAT)
     logger.info(f"Starting {conf.VERSION}")
     logger.info(f"ollama URL {conf.OLLAMA_URL}")
+
+    # change title and icon
+    # use the favicon.ico I designed for muquit.com early days of web when 
+    # favicon was introduced
+    st.set_page_config(
+        page_title="privategpt",
+        page_icon="assistant/m.ico",
+        initial_sidebar_state="collapsed" if conf.SHOW_SIDEBAR == False else "expanded",
+        layout="wide"
+    )
+    st.sidebar.title("Configuration")
 
     # get the client for listing
     ollama_client = get_ollama_client(conf.OLLAMA_URL)
