@@ -754,7 +754,7 @@ Vui lòng cung cấp câu trả lời hữu ích bằng tiếng Việt:"""
 ```
 
 #### Bangla Response
-Using native Bengali script for better accessibility:
+Native বাংলা script:
 ```python
 CUSTOM_PROMPT = """এই তথ্যগুলো দেখে প্রশ্নের উত্তর দাও।
 জরুরি কথা: শুধু বাংলায় উত্তর দিতে হবে।
