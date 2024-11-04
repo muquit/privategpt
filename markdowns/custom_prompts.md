@@ -53,6 +53,27 @@ Answer: Let me analyze the context and provide a detailed response.
 ### Language-Specific Prompts
 These prompts tell the LLM to respond in specific languages.
 
+#### No BS strict prompt
+```python
+CUSTOM_PROMPT = """
+Use the following context to answer the given question. Be direct and concise.
+
+Rules:
+1. Only use information from the provided context
+2. For factual questions, provide direct answers without analysis
+3. For complex questions, structure your response clearly
+4. If the answer isn't in the context, respond with "I cannot answer this based on the provided context"
+5. Don't include phrases like "According to the context" or "Based on the provided information"
+6. Don't speculate or infer beyond what's directly stated
+
+Context:
+{context}
+
+Question: {question}
+
+Answer:"""
+```
+
 #### German Response
 ```python
 CUSTOM_PROMPT = """Use the following pieces of context to answer the question.

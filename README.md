@@ -32,6 +32,7 @@
   - [Example Prompt Templates](#example-prompt-templates)
     - [Default Simple Prompt](#default-simple-prompt)
     - [Language-Specific Prompts](#language-specific-prompts)
+      - [No BS strict prompt](#no-bs-strict-prompt)
       - [German Response](#german-response)
       - [Vietnamese Response](#vietnamese-response)
       - [Bangla Response](#bangla-response)
@@ -499,18 +500,36 @@ Please update as needed
     # Custom system prompt. Please look at Custom Prompts section
     # in README.md for examples
     # added in v1.0.3
+    ##-CUSTOM_PROMPT = """
+    ##-Given the following context, answer the question using only the provided 
+    ##-information. If the answer isn't found in the context, respond with
+    ##-'I cannot answer this based on the provided context.'
+    ##-
+    ##-Context:
+    ##-{context}
+    ##-
+    ##-Question: {question}
+    ##-
+    ##-Answer: Let me analyze the context and provide a detailed response.
+    ##-"""
+    
     CUSTOM_PROMPT = """
-    Given the following context, answer the question using only the provided 
-    information. If the answer isn't found in the context, respond with
-    'I cannot answer this based on the provided context.'
+    Use the following context to answer the given question. Be direct and concise.
+    
+    Rules:
+    1. Only use information from the provided context
+    2. For factual questions, provide direct answers without analysis
+    3. For complex questions, structure your response clearly
+    4. If the answer isn't in the context, respond with "I cannot answer this based on the provided context"
+    5. Don't include phrases like "According to the context" or "Based on the provided information"
+    6. Don't speculate or infer beyond what's directly stated
     
     Context:
     {context}
     
     Question: {question}
     
-    Answer: Let me analyze the context and provide a detailed response.
-    """
+    Answer:"""
     
     # Change if ollama is running on a different system on 
     # your network or somewhere in the cloud. Please look
@@ -680,6 +699,27 @@ Answer: Let me analyze the context and provide a detailed response.
 
 ### Language-Specific Prompts
 These prompts tell the LLM to respond in specific languages.
+
+#### No BS strict prompt
+```python
+CUSTOM_PROMPT = """
+Use the following context to answer the given question. Be direct and concise.
+
+Rules:
+1. Only use information from the provided context
+2. For factual questions, provide direct answers without analysis
+3. For complex questions, structure your response clearly
+4. If the answer isn't in the context, respond with "I cannot answer this based on the provided context"
+5. Don't include phrases like "According to the context" or "Based on the provided information"
+6. Don't speculate or infer beyond what's directly stated
+
+Context:
+{context}
+
+Question: {question}
+
+Answer:"""
+```
 
 #### German Response
 ```python
