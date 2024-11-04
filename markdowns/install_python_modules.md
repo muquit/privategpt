@@ -142,16 +142,7 @@ On a Mac M2
 ➤ python3 -V
 Python 3.12.5
 ➤ ./scripts/check_versions.py
-tqdm==4.66.5
-ollama==0.3.3
-langchain_community==0.3.3
-langchain_huggingface==0.1.0
-langchain-chroma==0.1.4
-langchain-ollama==0.2.0
-chromadb==0.5.15
-sentence_transformers==3.2.1
-pymupdf==1.24.12
-streamlit==1.39.0
+@[:markdown](m2_mac.md)
 ```
 
 On an Intel Mac running Sonoma 14.6.1
@@ -160,15 +151,7 @@ On an Intel Mac running Sonoma 14.6.1
 ➤ python3 -V
 Python 3.12.7
 ➤ ./scripts/check_versions.py
-tqdm==4.66.5
-ollama==0.3.3
-langchain_community==0.3.3
-langchain_huggingface==0.1.0
-langchain-chroma==0.1.4
-chromadb==0.5.15
-sentence_transformers==3.2.1
-pymupdf==1.24.12
-streamlit==1.39.0
+@[:markdown](intel_mac.md)
 ```
 
 On a Lenovo T490 with 16GB memory, Ubuntu 24.04.1 LTS
@@ -177,16 +160,7 @@ On a Lenovo T490 with 16GB memory, Ubuntu 24.04.1 LTS
 ➤ python3 -V
 Python 3.12.3
 ➤ ./scripts/check_versions.py
-tqdm==4.66.6
-ollama==0.3.3
-langchain_community==0.3.5
-langchain_huggingface==0.1.2
-langchain-chroma==0.1.4
-langchain-ollama==0.2.0
-chromadb==0.5.17
-sentence_transformers==3.2.1
-pymupdf==1.24.13
-streamlit==1.39.0
+@[:markdown](ubuntu.md)
 ```
 
 ## Common Issues

@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from datetime import datetime
 
 ########################################################################
 # List installed python module versions. Python dependency managemen is
@@ -21,3 +22,7 @@ for package in packages:
         print(f"{package}=={pkg_version}")
     except Exception as e:
         print(f"{package} is not installed")
+
+today = datetime.today().strftime("%b-%d-%Y")
+print("\n--")
+print(f"Updated: {today}")
