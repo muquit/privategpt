@@ -50,10 +50,7 @@ Answer: Let me analyze the context and provide a detailed response.
 """
 ```
 
-### Language-Specific Prompts
-These prompts tell the LLM to respond in specific languages.
-
-#### No BS strict prompt
+### No BS strict prompt
 ```python
 CUSTOM_PROMPT = """
 Use the following context to answer the given question. Be direct and concise.
@@ -73,6 +70,10 @@ Question: {question}
 
 Answer:"""
 ```
+
+### Language-Specific Prompts
+These prompts tell the LLM to respond in specific languages.
+
 
 #### German Response
 ```python

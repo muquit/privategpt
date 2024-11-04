@@ -31,8 +31,8 @@
   - [Basic Usage](#basic-usage)
   - [Example Prompt Templates](#example-prompt-templates)
     - [Default Simple Prompt](#default-simple-prompt)
+    - [No BS strict prompt](#no-bs-strict-prompt)
     - [Language-Specific Prompts](#language-specific-prompts)
-      - [No BS strict prompt](#no-bs-strict-prompt)
       - [German Response](#german-response)
       - [Vietnamese Response](#vietnamese-response)
       - [Bangla Response](#bangla-response)
@@ -697,10 +697,7 @@ Answer: Let me analyze the context and provide a detailed response.
 """
 ```
 
-### Language-Specific Prompts
-These prompts tell the LLM to respond in specific languages.
-
-#### No BS strict prompt
+### No BS strict prompt
 ```python
 CUSTOM_PROMPT = """
 Use the following context to answer the given question. Be direct and concise.
@@ -720,6 +717,10 @@ Question: {question}
 
 Answer:"""
 ```
+
+### Language-Specific Prompts
+These prompts tell the LLM to respond in specific languages.
+
 
 #### German Response
 ```python
