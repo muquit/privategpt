@@ -327,6 +327,7 @@ ollama
 langchain_community
 langchain_huggingface
 langchain-chroma
+langchain-ollama
 chromadb
 sentence_transformers
 pymupdf

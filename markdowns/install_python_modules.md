@@ -94,15 +94,7 @@ pvenv\Scripts\deactivate
 
 ```
 $ more requirements.txt
-tqdm
-ollama
-langchain_community
-langchain_huggingface
-langchain-chroma
-chromadb
-sentence_transformers
-pymupdf
-streamlit
+@[:markdown](../requirements.txt)
 ```
 
 To install the modules:
