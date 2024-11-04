@@ -514,7 +514,7 @@ Please update as needed
     """
     
     # No BS strict prompt
-    # LLMs likes to talk too much, use strict prompt if you want
+    # LLMs like to talk too much, use strict prompt if you want
     #CUSTOM_PROMPT = """
     #Use the following context to answer the given question. Be direct and concise.
     
