@@ -31,8 +31,8 @@ Question: {question}
 Answer: Let me analyze the context and provide a detailed response.
 """
 
-# No BS strict prompt
-# LLMs like to talk too much, use strict prompt if you want
+## No BS strict prompt
+## LLMs like to talk too much, use strict prompt if you want
 #CUSTOM_PROMPT = """
 #Use the following context to answer the given question. Be direct and concise.
 
