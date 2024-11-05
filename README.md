@@ -344,7 +344,7 @@ To install the modules:
 pip3 install -r requirements.txt
 ```
 
-If you are using pythin 3.13, it will fail and you will see the following
+If you are using python 3.13, it will fail and you will see the following
 error:
 
 ```
