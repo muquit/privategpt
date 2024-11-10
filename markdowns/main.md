@@ -38,7 +38,7 @@
 
 @[:markdown](service.md)
 
-@[:markdown](list_docs.md)
+@[:markdown](scripts.md)
 
 @[:markdown](known_issues.md)
 

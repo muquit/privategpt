@@ -50,7 +50,9 @@
   - [Linux sysv](#linux-sysv)
   - [MacOS](#macos)
   - [Windows ](#windows-)
-- [List documents](#list-documents)
+- [Various Utility Scripts](#various-utility-scripts)
+  - [List documents](#list-documents)
+  - [Convert PDF to Text](#convert-pdf-to-text)
 - [Known Issues](#known-issues)
 - [Roadmap/TODO](#roadmaptodo)
 - [License](#license)
@@ -878,7 +880,9 @@ TODO
 
 TODO
 
-# List documents
+# Various Utility Scripts
+
+## List documents
 
 To list documents in chromadb, use the following scripts
 
@@ -888,6 +892,13 @@ scripts/list_chroma_metadata_files.py
 scripts/list_chroma_metadata_json.py
 scripts/list_chroma_metadata_pretty.py
 ```
+## Convert PDF to Text
+
+```
+scripts/pdf2txt.py
+```
+
+
 
 # Known Issues
 

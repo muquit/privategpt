@@ -1,4 +1,4 @@
-# List documents
+## List documents
 
 To list documents in chromadb, use the following scripts
 
