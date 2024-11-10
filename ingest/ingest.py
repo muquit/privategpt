@@ -16,6 +16,7 @@ import glob
 from typing import List
 from multiprocessing import Pool
 from tqdm import tqdm
+from functools import partial
 
 # handle future depecate warning. suppress the warning
 import warnings
@@ -98,8 +99,93 @@ LOADER_MAPPING = {
     # Add more mappings for other file extensions and loaders as needed
 }
 
+##---- new--- starts
+def extract_basic_metadata(file_path: str, conf) -> dict:
+    ext = "." + file_path.rsplit(".", 1)[-1]
+    stat = os.stat(file_path)
+    return {
+        "source": file_path,
+        "document_type": ext.lower(),
+        "creation_date": stat.st_mtime,
+        "content_hash": str(hash(file_path + str(stat.st_mtime)))
+    }
 
-def load_single_document(file_path: str) -> List[Document]:
+def load_single_document(file_path: str, conf) -> List[Document]:
+    ext = "." + file_path.rsplit(".", 1)[-1]
+    if ext not in LOADER_MAPPING:
+        raise ValueError(f"unsupported file extension '{ext}'")
+    
+    loader_class, loader_args = LOADER_MAPPING[ext]
+    loader = loader_class(file_path, **loader_args)
+    docs = loader.load()
+    
+    if conf.METADATA_ENABLED:
+        metadata = extract_basic_metadata(file_path, conf)
+        for idx, doc in enumerate(docs):
+            doc.metadata.update(metadata)
+            doc.metadata["chunk_index"] = idx
+            
+    return docs
+
+def load_documents(conf, source_dir: str, ignored_files: List[str] = []) -> List[Document]:
+    all_files = []
+    for ext in LOADER_MAPPING:
+        all_files.extend(
+            glob.glob(os.path.join(source_dir, f"**/*{ext}"), recursive=True)
+        )
+    filtered_files = [file_path for file_path in all_files if file_path not in ignored_files]
+
+    with Pool(processes=os.cpu_count()) as pool:
+        results = []
+        with tqdm(total=len(filtered_files), desc='Loading new documents', ncols=80) as pbar:
+            for i, docs in enumerate(pool.imap_unordered(partial(load_single_document, conf=conf), filtered_files)):
+                results.extend(docs)
+                pbar.update()
+
+    return results
+
+def deduplicate_chunks(texts: List[Document], conf) -> List[Document]:
+    seen_hashes = set()
+    unique_texts = []
+    
+    for text in texts:
+        if len(text.page_content) < conf.MIN_CHUNK_LENGTH:
+            continue
+            
+        content_hash = str(hash(text.page_content))
+        if content_hash not in seen_hashes:
+            seen_hashes.add(content_hash)
+            text.metadata["content_hash"] = content_hash
+            unique_texts.append(text)
+            
+    return unique_texts
+
+def process_documents(conf, logger, ignored_files: List[str] = []) -> List[Document]:
+    source_directory = conf.DOCUMENT_DIR
+    logger.info(f"loading documents from {source_directory}")
+    documents = load_documents(conf, source_directory, ignored_files)
+    if not documents:
+        logger.info("no new documents to load")
+        exit(0)
+        
+    text_splitter = RecursiveCharacterTextSplitter(
+        chunk_size=conf.CHUNK_SIZE,
+        chunk_overlap=conf.OVERLAP,
+        length_function=len,
+    )
+    
+    texts = text_splitter.split_documents(documents)
+    
+    if conf.METADATA_ENABLED and conf.DEDUP_ENABLED:
+        texts = deduplicate_chunks(texts, conf)
+        
+    logger.info(f"split into {len(texts)} chunks (max. {conf.CHUNK_SIZE} tokens each)")
+    return texts
+##---- new--- end
+
+
+
+def load_single_documentOld(file_path: str) -> List[Document]:
     ext = "." + file_path.rsplit(".", 1)[-1]
     if ext in LOADER_MAPPING:
         loader_class, loader_args = LOADER_MAPPING[ext]
@@ -108,7 +194,7 @@ def load_single_document(file_path: str) -> List[Document]:
 
     raise ValueError(f"Unsupported file extension '{ext}'")
 
-def load_documents(source_dir: str, ignored_files: List[str] = []) -> List[Document]:
+def load_documentsOld(source_dir: str, ignored_files: List[str] = []) -> List[Document]:
     """
     Loads all documents from the source documents directory, ignoring specified files
     """
@@ -128,7 +214,7 @@ def load_documents(source_dir: str, ignored_files: List[str] = []) -> List[Docum
 
     return results
 
-def process_documents(conf, logger, ignored_files: List[str] = []) -> List[Document]:
+def process_documentsOld(conf, logger, ignored_files: List[str] = []) -> List[Document]:
     """
     Load documents and split in chunks
     """

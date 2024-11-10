@@ -39,7 +39,12 @@ def load_config():
         DEFAULT_MODEL,
         EXCLUDE_MODELS,
         ASK_ME_TEXT,
-        CUSTOM_PROMPT
+        CUSTOM_PROMPT,
+        METADATA_ENABLED,
+        DEDUP_ENABLED,
+        METADATA_FIELDS,
+        SIMILARITY_THRESHOLD,
+        MIN_CHUNK_LENGTH
     )
 
     # return configuration as a SimpleNamespace object
@@ -63,7 +68,12 @@ def load_config():
         DEFAULT_MODEL=DEFAULT_MODEL,
         EXCLUDE_MODELS=EXCLUDE_MODELS,
         ASK_ME_TEXT=ASK_ME_TEXT,
-        CUSTOM_PROMPT=CUSTOM_PROMPT
+        CUSTOM_PROMPT=CUSTOM_PROMPT,
+        METADATA_ENABLED=METADATA_ENABLED,
+        DEDUP_ENABLED=DEDUP_ENABLED,
+        METADATA_FIELDS=METADATA_FIELDS,
+        SIMILARITY_THRESHOLD=SIMILARITY_THRESHOLD,
+        MIN_CHUNK_LENGTH=MIN_CHUNK_LENGTH
     )
 
 #====================================================================

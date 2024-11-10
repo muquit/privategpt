@@ -61,9 +61,28 @@ OLLAMA_URL = "http://127.0.0.1:11434"
 
 # put your documents in ./documents directory
 DOCUMENT_DIR = os.path.join(PROJECT_ROOT, 'documents')
+#DOCUMENT_DIR = os.path.join(PROJECT_ROOT, 'test_docs')
 
 # database will be created in ./db directory
 PERSIST_DIRECTORY = os.path.join(PROJECT_ROOT, 'db')
+
+# metadata and document processing config
+METADATA_ENABLED = True          # enable/disable enhanced metadata
+DEDUP_ENABLED = True             # enable/disable deduplication checking
+
+# metadata fields to extract/generate
+METADATA_FIELDS = [
+    "source",                   # original filename (you already have this)
+    "chunk_index",              # position of chunk in document
+    "document_type",            # pdf, txt, etc.
+    "creation_date",            # document creation date
+    "section_title",            # section/heading if available
+    "content_hash"              # for similarity detection
+]
+
+# similarity detection settings
+SIMILARITY_THRESHOLD = 0.95     # threshold for considering chunks similar
+MIN_CHUNK_LENGTH = 50           # minimum characters in a chunk to consider
 
 CHUNK_SIZE = 500
 OVERLAP = 50
