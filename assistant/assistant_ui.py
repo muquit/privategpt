@@ -79,6 +79,8 @@ def doit():
         layout="wide"
     )
     st.sidebar.title("Configuration")
+    if conf.SHOW_SIDEBAR == False:
+        st.set_page_config(initial_sidebar_state="collapsed")
 
     # get the client for listing
     ollama_client = get_ollama_client(conf.OLLAMA_URL)
@@ -133,10 +135,7 @@ def doit():
     if 'qa' not in st.session_state:
         st.session_state.qa = None
 
-    # sidebar for configuration
-    if conf.SHOW_SIDEBAR == False:
-        st.set_page_config(initial_sidebar_state="collapsed")
-    st.sidebar.title("Configuration")
+#    st.sidebar.title("Configuration")
 
     # get the list of models
     logger.info(f"Listing models from ollama ...")
