@@ -5,7 +5,7 @@ or over network. Everything runs on your local machine or network so your
 documents stay private. It has both web and command line interface that 
 you can use to ask questions about your documents.
 
-The project is under heavy development, please try it out give us your 
+The project is under heavy development, please try it out give and us your 
 feedback. Thanks.
 
 # Introduction

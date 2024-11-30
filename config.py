@@ -6,7 +6,7 @@ import sys
 
 current_file_path = os.path.abspath(__file__)
 PROJECT_ROOT = os.path.dirname(current_file_path)
-VERSION="1.0.3"
+VERSION="1.0.4"
 
 APP_TITLE = "Private Documents Assistant"
 APP_DESCRIPTION = "An on-premises private documents assistant with ollama"
@@ -86,7 +86,7 @@ MIN_CHUNK_LENGTH = 50           # minimum characters in a chunk to consider
 
 CHUNK_SIZE = 500
 OVERLAP = 50
-TARGET_SOURCE_CHUNKS = 4
+TARGET_SOURCE_CHUNKS = 5
 EMBEDDINGS_MODEL_NAME = "all-MiniLM-L6-v2"
 
 # Log files, Change

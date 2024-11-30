@@ -1,10 +1,28 @@
 ## Contents
 <!-- TOC -->
 
+- [v1.0.4](#v104)
 - [v1.0.3](#v103)
 - [v1.0.2](#v102)
 
 <!-- /TOC -->
+
+# v1.0.4
+
+* Resolve #3. ollama Python package was updated from 0.3.3 to 0.4.2 which 
+changed how model information is returned from the API. The old code tried 
+to access models using dict syntax model["name"] but the new version 
+returns Model objects that need to be accessed using model.model 
+attribute. Now a pinned version of `requirements_pinned.txt` is supplied with
+the versions of the modules known to work.
+
+(Nov-29-2024)
+
+* For ingestion testing adddd Universal Declaration of Human Rights 
+documents in `documents/universal_declaration_of_human_rights.pdf`
+Source: https://www.un.org/sites/un2.un.org/files/2021/03/udhr.pdf
+
+(Nov-30-2024)
 
 # v1.0.3
 

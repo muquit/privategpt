@@ -93,14 +93,26 @@ pvenv\Scripts\deactivate
 - Install python modules. The following modulles and their dependencies will be installed in the virtual environment.
 
 ```
-$ more requirements.txt
-@[:markdown](../requirements.txt)
+$ more requirements_pinned.txt
+@[:markdown](../requirements_pinned.txt)
 ```
 
 To install the modules:
 
 ```
-pip3 install -r requirements.txt
+pip3 install -r requirements_pinned.txt
+```
+
+If you want to try the latest versions of the modules (may introduce 
+compatibility issues)
+
+```
+deactivate
+rm -rf pvenv
+python3 -m venv pvenv
+source vnenv/bin/activate # Linux/Unix
+pvenv\Scripts\deactivate  # Windows
+pip3 install -r requirements.txt --upgrade
 ```
 
 If you are using python 3.13, it will fail and you will see the following

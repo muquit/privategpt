@@ -10,7 +10,6 @@ __pycache__/
 *.bkp
 
 pvenv/
-documents/
 
 # Distribution / packaging
 .Python

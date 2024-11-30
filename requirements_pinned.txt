@@ -1,0 +1,28 @@
+# Contains exact versions that are known to work together
+# Test environment: Python 3.12
+#
+# If you want to try the latest versions (may introduce compatibility 
+# issues):
+#   1. pip install -r requirements.txt --upgrade
+#   2. If it works: Please create an issue with your versions (run:
+#      ./scripts/check_versions.py)
+#   3. If it breaks: Fall back to pinned versions, do the follwing:
+#      deactive
+#      rm -rf pvenv
+#      python3 -m venv pvenv
+#      source pvenv/bin/activate
+#      pip install -r requirements_pinned.txt
+#
+# Generated with: ./scripts/check_versions.py
+tqdm==4.67.1
+ollama==0.4.2
+langchain_community==0.3.8
+langchain_huggingface==0.1.2
+langchain-chroma==0.1.4
+langchain-ollama==0.2.0
+chromadb==0.5.20
+sentence_transformers==3.3.1
+pymupdf==1.24.14
+streamlit==1.40.2
+#
+# Last verified: Nov-29-2024

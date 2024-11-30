@@ -110,7 +110,7 @@ def extract_basic_metadata(file_path: str, conf) -> dict:
         "content_hash": str(hash(file_path + str(stat.st_mtime)))
     }
 
-def load_single_document(file_path: str, conf) -> List[Document]:
+def load_single_documentX(file_path: str, conf) -> List[Document]:
     ext = "." + file_path.rsplit(".", 1)[-1]
     if ext not in LOADER_MAPPING:
         raise ValueError(f"unsupported file extension '{ext}'")
@@ -127,7 +127,7 @@ def load_single_document(file_path: str, conf) -> List[Document]:
             
     return docs
 
-def load_documents(conf, source_dir: str, ignored_files: List[str] = []) -> List[Document]:
+def load_documentsX(conf, source_dir: str, ignored_files: List[str] = []) -> List[Document]:
     all_files = []
     for ext in LOADER_MAPPING:
         all_files.extend(
@@ -160,7 +160,7 @@ def deduplicate_chunks(texts: List[Document], conf) -> List[Document]:
             
     return unique_texts
 
-def process_documents(conf, logger, ignored_files: List[str] = []) -> List[Document]:
+def process_documentsX(conf, logger, ignored_files: List[str] = []) -> List[Document]:
     source_directory = conf.DOCUMENT_DIR
     logger.info(f"loading documents from {source_directory}")
     documents = load_documents(conf, source_directory, ignored_files)
@@ -185,7 +185,7 @@ def process_documents(conf, logger, ignored_files: List[str] = []) -> List[Docum
 
 
 
-def load_single_documentOld(file_path: str) -> List[Document]:
+def load_single_document(file_path: str) -> List[Document]:
     ext = "." + file_path.rsplit(".", 1)[-1]
     if ext in LOADER_MAPPING:
         loader_class, loader_args = LOADER_MAPPING[ext]
@@ -194,7 +194,7 @@ def load_single_documentOld(file_path: str) -> List[Document]:
 
     raise ValueError(f"Unsupported file extension '{ext}'")
 
-def load_documentsOld(source_dir: str, ignored_files: List[str] = []) -> List[Document]:
+def load_documents(source_dir: str, ignored_files: List[str] = []) -> List[Document]:
     """
     Loads all documents from the source documents directory, ignoring specified files
     """
@@ -214,7 +214,7 @@ def load_documentsOld(source_dir: str, ignored_files: List[str] = []) -> List[Do
 
     return results
 
-def process_documentsOld(conf, logger, ignored_files: List[str] = []) -> List[Document]:
+def process_documents(conf, logger, ignored_files: List[str] = []) -> List[Document]:
     """
     Load documents and split in chunks
     """

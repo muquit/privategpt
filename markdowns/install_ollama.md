@@ -8,6 +8,11 @@ the instructions at https://ollama.com
 Ollama is running
 ```
 
+```
+➤ ollama --version
+ollama version is 0.4.6
+```
+
 - Then install say 2 Large Language Models (LLMS), I use mistral and llama3. 
 You can install as many as you like provided your system has plenty of memory.
 Here is how to install and query models. You can run any large language model from 

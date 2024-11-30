@@ -12,9 +12,17 @@ https://github.com/ollama/ollama/tree/main/examples/langchain-python-rag-private
 I wrote the web ui using streamlit
 """
 
+#====================================================================
+# Bug #3
+# ollama Python package was updated from 0.3.3 to 0.4.2 which 
+# changed how model information is returned from the API. The old code
+# tried to access models using dict syntax model["name"] but the new
+# version returns Model objects that need to be accessed using
+# model.model attribute.
+# Updated: Nov-29-2024 - muquit@muquit.com 
+#====================================================================
 
 import os
-os.environ['PYTHONWARNINGS'] = 'ignore::UserWarning:torch.classes'
 import sys
 import warnings
 from typing import Any, Dict
@@ -50,18 +58,12 @@ import socket
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, project_root)
 
-#from logging.handlers import RotatingFileHandler
-
 from utils.load_config import load_config
 from utils.logging import setup_logging
 
-# use Client instead of ollama.list(). If ollama is running on a 
-# remote host, ollama.list() uses default URL
-# cache the call
 @st.cache_resource
 def get_ollama_client(url):
     return Client(host=url)
-
 
 def doit():
     conf = load_config()
@@ -70,7 +72,7 @@ def doit():
     logger.info(f"ollama URL {conf.OLLAMA_URL}")
 
     # change title and icon
-    # use the favicon.ico I designed for muquit.com early days of web when 
+    # use the favicon.ico I designed for muquit.com early days of web when
     # favicon was introduced
     st.set_page_config(
         page_title="privategpt",
@@ -82,7 +84,6 @@ def doit():
     if conf.SHOW_SIDEBAR == False:
         st.set_page_config(initial_sidebar_state="collapsed")
 
-    # get the client for listing
     ollama_client = get_ollama_client(conf.OLLAMA_URL)
 
     @st.cache_resource
@@ -112,9 +113,6 @@ def doit():
         </div>
         """, unsafe_allow_html=True)
 
-
-
-    # Streamlit callback handler for streaming responses
     class StreamHandler(BaseCallbackHandler):
         def __init__(self, container):
             self.container = container
@@ -124,42 +122,51 @@ def doit():
             self.text += token
             self.container.markdown(self.text)
             
-        def on_chain_start( self, serialized: Dict[str, Any], inputs: Dict[str, Any], **kwargs: Any) -> None:
+        def on_chain_start(self, serialized: Dict[str, Any], inputs: Dict[str, Any], **kwargs: Any) -> None:
             logger.info(f"chain started")
 
-    # load configuration. look at config.py at the base of the project
-
-    # initialize session state
     if 'conversation' not in st.session_state:
         st.session_state.conversation = []
     if 'qa' not in st.session_state:
         st.session_state.qa = None
 
-#    st.sidebar.title("Configuration")
+    try:
+        response = ollama_client.list()
+        if hasattr(response, 'models'):
+            all_models = [model.model for model in response.models]
+        else:
+            all_models = [model.model for model in response]
+        
+        logger.info(f"Found models: {all_models}")
+        
+        if not all_models:
+            logger.warning("No models found, using mistral as default")
+            all_models = ["mistral"]
+            
+    except Exception as e:
+        logger.error(f"Error listing models: {e}")
+        all_models = ["mistral"]
+        logger.warning("Using fallback model: mistral")
 
-    # get the list of models
-    logger.info(f"Listing models from ollama ...")
-    all_models = [model["name"] for model in ollama_client.list()["models"]]
     models = [model for model in all_models if model not in conf.EXCLUDE_MODELS]
 
-    # select the first model in the list as default
+    if not models:
+        logger.warning("No models available after exclusions, using mistral as default")
+        models = ["mistral"]
+
     model = st.sidebar.selectbox("Choose your model", models, index=0)
+    logger.info(f"Selected model: {model}")
     
-    # model to use for vectorizing texts
     embeddings_model_name = conf.EMBEDDINGS_MODEL_NAME
 
-    # hide source checkbox
     hide_source = st.sidebar.checkbox("Hide Source", value=False)
 
-    # print the header first
     print_header(conf)
 
     @st.cache_resource(show_spinner=False)
     def get_embeddings(model_name):
         return HuggingFaceEmbeddings(model_name=model_name)
 
-    
-    # initialize embeddings and database
     @st.cache_resource(show_spinner=False)
     def initialize_qa(model, embeddings_model_name, hide_source):
         logger.info("Initializing QA ...")
@@ -178,7 +185,6 @@ def doit():
         logger.debug(f"Number of documents in Chroma: {retriever.vectorstore._collection.count()}")
         llm = OllamaLLM(model=model, base_url=conf.OLLAMA_URL)
 
-        # if custom prompt specified use it.
         if hasattr(conf, 'CUSTOM_PROMPT'):
             custom_prompt = PromptTemplate(
                 template=conf.CUSTOM_PROMPT,
@@ -203,59 +209,35 @@ def doit():
         logger.debug(f"QA chain return_source_documents: {qa.return_source_documents}")
         return qa
 
-    # initialize or update QA when configuration changes
     if (st.session_state.qa is None or
         model != st.session_state.get('model') or
         embeddings_model_name != st.session_state.get('embeddings_model') or
         hide_source != st.session_state.get('hide_source')):
         
-        if (st.session_state.qa is None or
-            model != st.session_state.get('model') or
-            embeddings_model_name != st.session_state.get('embeddings_model') or
-            hide_source != st.session_state.get('hide_source')):    
-         with st.spinner("Initializing ..."):
-#            print("XXXXXXXXXXX")
-#            print(f">>>>>>>>>>>>>>>> using model {model}")
-#            print("XXXXXXXXXXX")
+        with st.spinner("Initializing ..."):
             st.session_state.qa = initialize_qa(model, embeddings_model_name, hide_source)
             st.session_state.model = model
             st.session_state.embeddings_model = embeddings_model_name
             st.session_state.hide_source = hide_source
 
-    # display conversation history
     for message in st.session_state.conversation:
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
 
-    # input
     if prompt := st.chat_input(conf.ASK_ME_TEXT, key="user_input"):
         st.session_state.conversation.append({"role": "user", "content": prompt})
         with st.chat_message("user"):
             st.markdown(prompt)
 
-        # generate and display response
         with st.chat_message("assistant"):
             response_container = st.empty()
             stream_handler = StreamHandler(response_container)
-            # __call__ method is deprecated, use invoke instead.
             with st.spinner('Processing...'):
-                # use invoke 
-                # it is important use config with invoke otherwise
-                # streamlit will not stream
-                # Oct-20-2024 
+                # __call__ method is deprecated, use invoke instead
                 response = st.session_state.qa.invoke(
-                        {"query": prompt},
-                        config={"callbacks":[stream_handler]}
-                 )
-                # old __call__ way
-#                response = st.session_state.qa(
-#                    {"query": prompt},
-#                    callbacks=[stream_handler]
-#                )
-            
-#            logger.info(f"Question: {prompt}")
-#            logger.info(f"Debug - Full response: {response}")
-#            logger.info(f"Debug - Response type: {type(response)}")
+                    {"query": prompt},
+                    config={"callbacks": [stream_handler]}
+                )
             
             if isinstance(response, dict):
                 answer = response['result']
@@ -272,18 +254,6 @@ def doit():
                     logger.error(f"Debug - Error retrieving source documents: {str(e)}")
                     source_documents = []
 
-##--            logger.info(f"Answer: {answer}")
-            # Only log the answer if it's for a new question
-#            if 'last_question' not in st.session_state or st.session_state.last_question != prompt:
-#                logger.info(f"Question: {prompt}")
-#                logger.info(f"Answer: {answer}")
-#                st.session_state.last_question = prompt
-
-
-            # __call__ method is deprecated, use invoke instead. But 
-            # we must update the response container with the final 
-            # answer 
-            # Sep-16-2024 
             response_container.markdown(answer)
             st.session_state.conversation.append({"role": "assistant", "content": answer})
 
@@ -293,12 +263,10 @@ def doit():
                     for idx, doc in enumerate(source_documents):
                         with st.expander(f"Source {idx + 1}"):
                             meta_data = doc.metadata
-                            # get the source and page if possible
                             source = meta_data.get('source', 'N/A')
                             page = meta_data.get('page', 'N/A')
                             filename = os.path.basename(source)
                             st.write(f"From: **{filename}**", unsafe_allow_html=True)
-                            # write the source content
                             st.write(doc.page_content)
                             st.write(f"**Page**: {page}")
                     logger.info(f"Debug - Displayed {len(source_documents)} source documents")
@@ -312,10 +280,7 @@ def doit():
         logger.debug(f"hide_source value: {hide_source}")
         logger.debug(f"qa chain type: {type(st.session_state.qa)}")
         logger.debug(f">>>>>>>>>>>>>>>> using model {model}")
-        #logger.debug(f"qa chain attributes: {dir(st.session_state.qa)}")
 
-    # button to clear conversation history (only shown if there's a 
-    # conversation)
     if st.session_state.conversation:
         if st.button("Clear Conversation"):
             st.session_state.conversation = []

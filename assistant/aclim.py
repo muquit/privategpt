@@ -44,12 +44,10 @@ os.environ["ANONYMIZED_TELEMETRY"] = "false"
 from langchain_chroma import Chroma
 import ollama
 from ollama import Client
-#from langchain_community.llms import Ollama
 from langchain_ollama import OllamaLLM
 import chromadb
 import argparse
 import time
-#sys.stderr.write(f"Done")
 
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.insert(0, project_root)
@@ -159,6 +157,29 @@ def format_answer_x(text, width=80):
 def get_ollama_client(url):
     return Client(host=url)
 
+def verify_model_exists(client, model_name):
+    try:
+        response = client.list()
+        if hasattr(response, 'models'):
+            available_models = [model.model for model in response.models]
+        else:
+            available_models = [model.model for model in response]
+            
+        # Check for exact match or model_name:latest
+        if model_name not in available_models and f"{model_name}:latest" not in available_models:
+            print(f"Error: Model '{model_name}' not found. Available models: {', '.join(available_models)}")
+            sys.exit(1)
+            
+        # If base name was provided, use the :latest version
+        if model_name not in available_models and f"{model_name}:latest" in available_models:
+            return f"{model_name}:latest"
+            
+        return model_name
+            
+    except Exception as e:
+        print(f"Error checking models: {e}")
+        sys.exit(1)
+        
 def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description='privategpt: Ask questions to your documents without an internet connection, '
                                                  'using the power of LLMs.')
@@ -188,7 +209,6 @@ def doit(args):
 
     model = args.model
 
-#    logger = setup_logging(conf.LOG_FILE_CHAT)
     global busy_indicator
     busy_indicator = BrailleSpinner("Processing")
     atexit.register(cleanup)
@@ -198,6 +218,7 @@ def doit(args):
     target_source_chunks = conf.TARGET_SOURCE_CHUNKS
 
     ollama_client = get_ollama_client(conf.OLLAMA_URL)
+    verify_model_exists(ollama_client, model)
 
     embeddings = HuggingFaceEmbeddings(model_name=conf.EMBEDDINGS_MODEL_NAME)
 
@@ -206,7 +227,6 @@ def doit(args):
     db = Chroma(
             persist_directory=conf.PERSIST_DIRECTORY,
             embedding_function=embeddings)
-#    print(f"Done")
     print(f"Using LLM: {model}")
 
     target_source_chunks = int(conf.TARGET_SOURCE_CHUNKS)
@@ -216,7 +236,6 @@ def doit(args):
 
     llm = OllamaLLM(model=model, base_url=conf.OLLAMA_URL, callbacks=callbacks)
 
-    # if custom prompt specified use it.
     if hasattr(conf, 'CUSTOM_PROMPT'):
         custom_prompt = PromptTemplate(
             template=conf.CUSTOM_PROMPT,
@@ -236,19 +255,16 @@ def doit(args):
                                      retriever=retriever,
                                      return_source_documents= not args.hide_source,
                                      verbose=False)
-    # Interactive questions and answers
+    
     while True:
         print(f"\n{Colors.COLOR_GREEN}{Colors.COLOR_BOLD}{conf.ASK_ME_TEXT}{Colors.COLOR_NORM} ")
-#        query = input(f"\n{Colors.COLOR_GREEN}{Colors.COLOR_BOLD}{conf.ASK_ME_TEXT}>{Colors.COLOR_NORM} ")
         query = input(f"> ")
         if query == "q" or query == "quit" or query == "quit()" or query == "/bye":
             break
         if query.strip() == "":
             continue
 
-        # Get the answer from the chain
         start = time.time()
-
         stream_handler.started = False
 
         busy_indicator.start()
@@ -264,13 +280,11 @@ def doit(args):
         end = time.time()
         busy_indicator.stop()
 
-        # print the result
         print(f"\n\n{Colors.COLOR_CYAN}{Colors.COLOR_BOLD}Question:{Colors.COLOR_NORM}")
         print(f"{Colors.COLOR_BOLD}{query}{Colors.COLOR_NORM}")
         formatted_answer = format_answer(answer)
         print(formatted_answer)
 
-        # print the relevant sources used for the answer
         for document in docs:
             meta_data = document.metadata
             source = meta_data.get('source', 'N/A')
@@ -291,13 +305,8 @@ def doit(args):
         print(f"\nTime took: {end - start:.2f} seconds")
         print(f"LLM used: {args.model}")
 
-
-
 if __name__ == "__main__":
     import sys
     from assistant_console_runner import parse_arguments
     args = parse_arguments()
-#    if len(sys.argv) == 1 or "--help" in sys.argv or "-h" in sys.argv:
-#        parser.print_help()
-#        sys.exit(0)
     doit(args)

@@ -16,6 +16,21 @@
     - [Linux/MacOS](#linuxmacos)
     - [Windows](#windows)
     - [Install the Python Modules](#install-the-python-modules)
+- [Contains exact versions that are known to work together](#contains-exact-versions-that-are-known-to-work-together)
+- [Test environment: Python 3.12](#test-environment-python-312)
+- [If you want to try the latest versions (may introduce compatibility ](#if-you-want-to-try-the-latest-versions-may-introduce-compatibility-)
+- [issues):](#issues)
+- [1. pip install -r requirements.txt --upgrade](#1-pip-install--r-requirementstxt---upgrade)
+- [2. If it works: Please create an issue with your versions (run:](#2-if-it-works-please-create-an-issue-with-your-versions-run)
+- [./scripts/check_versions.py)](#scriptscheck_versionspy)
+- [3. If it breaks: Fall back to pinned versions, do the follwing:](#3-if-it-breaks-fall-back-to-pinned-versions-do-the-follwing)
+- [deactive](#deactive)
+- [rm -rf pvenv](#rm--rf-pvenv)
+- [python3 -m venv pvenv](#python3--m-venv-pvenv)
+- [source pvenv/bin/activate](#source-pvenvbinactivate)
+- [pip install -r requirements_pinned.txt](#pip-install--r-requirements_pinnedtxt)
+- [Generated with: ./scripts/check_versions.py](#generated-with-scriptscheck_versionspy)
+- [Last verified: Nov-29-2024](#last-verified-nov-29-2024)
   - [Common Issues](#common-issues)
   - [Troubleshotting](#troubleshotting)
 - [Configuration file](#configuration-file)
@@ -64,7 +79,7 @@ or over network. Everything runs on your local machine or network so your
 documents stay private. It has both web and command line interface that 
 you can use to ask questions about your documents.
 
-The project is under heavy development, please try it out give us your 
+The project is under heavy development, please try it out give and us your 
 feedback. Thanks.
 
 # Introduction
@@ -122,7 +137,7 @@ generate the README.md.
 
 # Version
 
-The current version of the tools is 1.0.3.
+The current version of the tools is 1.0.4.
 
 Please look at [ChangeLog](ChangeLog.md) for what has changed in the
 current version.  It is possible, new python modules need to be installed.
@@ -176,6 +191,11 @@ the instructions at https://ollama.com
 
 ```
 Ollama is running
+```
+
+```
+➤ ollama --version
+ollama version is 0.4.6
 ```
 
 - Then install say 2 Large Language Models (LLMS), I use mistral and llama3. 
@@ -327,23 +347,53 @@ pvenv\Scripts\deactivate
 - Install python modules. The following modulles and their dependencies will be installed in the virtual environment.
 
 ```
-$ more requirements.txt
-tqdm
-ollama
-langchain_community
-langchain_huggingface
-langchain-chroma
-langchain-ollama
-chromadb
-sentence_transformers
-pymupdf
-streamlit
+$ more requirements_pinned.txt
+# Contains exact versions that are known to work together
+# Test environment: Python 3.12
+#
+# If you want to try the latest versions (may introduce compatibility 
+# issues):
+#   1. pip install -r requirements.txt --upgrade
+#   2. If it works: Please create an issue with your versions (run:
+#      ./scripts/check_versions.py)
+#   3. If it breaks: Fall back to pinned versions, do the follwing:
+#      deactive
+#      rm -rf pvenv
+#      python3 -m venv pvenv
+#      source pvenv/bin/activate
+#      pip install -r requirements_pinned.txt
+#
+# Generated with: ./scripts/check_versions.py
+tqdm==4.67.1
+ollama==0.4.2
+langchain_community==0.3.8
+langchain_huggingface==0.1.2
+langchain-chroma==0.1.4
+langchain-ollama==0.2.0
+chromadb==0.5.20
+sentence_transformers==3.3.1
+pymupdf==1.24.14
+streamlit==1.40.2
+#
+# Last verified: Nov-29-2024
 ```
 
 To install the modules:
 
 ```
-pip3 install -r requirements.txt
+pip3 install -r requirements_pinned.txt
+```
+
+If you want to try the latest versions of the modules (may introduce 
+compatibility issues)
+
+```
+deactivate
+rm -rf pvenv
+python3 -m venv pvenv
+source vnenv/bin/activate # Linux/Unix
+pvenv\Scripts\deactivate  # Windows
+pip3 install -r requirements.txt --upgrade
 ```
 
 If you are using python 3.13, it will fail and you will see the following
@@ -493,7 +543,7 @@ Please update as needed
     
     current_file_path = os.path.abspath(__file__)
     PROJECT_ROOT = os.path.dirname(current_file_path)
-    VERSION="1.0.3"
+    VERSION="1.0.4"
     
     APP_TITLE = "Private Documents Assistant"
     APP_DESCRIPTION = "An on-premises private documents assistant with ollama"
@@ -548,13 +598,32 @@ Please update as needed
     
     # put your documents in ./documents directory
     DOCUMENT_DIR = os.path.join(PROJECT_ROOT, 'documents')
+    #DOCUMENT_DIR = os.path.join(PROJECT_ROOT, 'test_docs')
     
     # database will be created in ./db directory
     PERSIST_DIRECTORY = os.path.join(PROJECT_ROOT, 'db')
     
+    # metadata and document processing config
+    METADATA_ENABLED = True          # enable/disable enhanced metadata
+    DEDUP_ENABLED = True             # enable/disable deduplication checking
+    
+    # metadata fields to extract/generate
+    METADATA_FIELDS = [
+        "source",                   # original filename (you already have this)
+        "chunk_index",              # position of chunk in document
+        "document_type",            # pdf, txt, etc.
+        "creation_date",            # document creation date
+        "section_title",            # section/heading if available
+        "content_hash"              # for similarity detection
+    ]
+    
+    # similarity detection settings
+    SIMILARITY_THRESHOLD = 0.95     # threshold for considering chunks similar
+    MIN_CHUNK_LENGTH = 50           # minimum characters in a chunk to consider
+    
     CHUNK_SIZE = 500
     OVERLAP = 50
-    TARGET_SOURCE_CHUNKS = 4
+    TARGET_SOURCE_CHUNKS = 5
     EMBEDDINGS_MODEL_NAME = "all-MiniLM-L6-v2"
     
     # Log files, Change
@@ -899,6 +968,11 @@ scripts/pdf2txt.py
 ```
 
 
+
+List loaded models in ollama (for testign Bug #3)
+```
+scripts/list_loaded_models.py
+```
 
 # Known Issues
 
