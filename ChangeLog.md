@@ -18,8 +18,8 @@ the versions of the modules known to work.
 
 (Nov-29-2024)
 
-* For ingestion testing adddd Universal Declaration of Human Rights 
-documents in `documents/universal_declaration_of_human_rights.pdf`
+* For ingestion testing add "Universal Declaration of Human Rights"
+document in `documents/universal_declaration_of_human_rights.pdf`
 Source: https://www.un.org/sites/un2.un.org/files/2021/03/udhr.pdf
 
 (Nov-30-2024)
