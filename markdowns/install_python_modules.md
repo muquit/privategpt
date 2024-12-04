@@ -138,35 +138,6 @@ error:
 
 Install python 3.12 as described above.
 
-The versions I used are shown below:
-
-On a Mac M2
-
-```
-➤ python3 -V
-Python 3.12.5
-➤ ./scripts/check_versions.py
-@[:markdown](m2_mac.md)
-```
-
-On an Intel Mac running Sonoma 14.6.1
-
-```
-➤ python3 -V
-Python 3.12.7
-➤ ./scripts/check_versions.py
-@[:markdown](intel_mac.md)
-```
-
-On a Lenovo T490 with 16GB memory, Ubuntu 24.04.1 LTS
-
-```
-➤ python3 -V
-Python 3.12.3
-➤ ./scripts/check_versions.py
-@[:markdown](ubuntu.md)
-```
-
 ## Common Issues
 
 1. Wrong python version
